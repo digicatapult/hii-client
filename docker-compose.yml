@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  #client-api: // uncomment when api repo/service is ready
+  #  image: digicatapult/client-api:v0.1.0
+  #  container_name: api
+  #  ports:
+  #    - "3001:3000"
+  #  environment:
+  #    - SOME_VAR=123-test

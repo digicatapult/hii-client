@@ -1,0 +1,62 @@
+{
+  "extends": [
+    "plugin:react/recommended",
+    "prettier"
+  ],
+  "plugins": ["react", "prettier", "react-hooks", "cypress"],
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "requireConfigFile": false,
+    "sourceType": "module",
+    "babelOptions": {
+      "presets": ["@babel/preset-react"]
+    }
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true
+  },
+  "globals": {
+    "process": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "rules": {
+    "no-console": "error",
+    "jsx-quotes": ["error", "prefer-single"],
+    "prettier/prettier": ["error", { "singleQuote": true }],
+    "react/jsx-filename-extension": 0,
+    "react/require-default-props": 0,
+    "react/sort-comp": 0,
+    "react/destructuring-assignment": 0,
+    "react/no-access-state-in-setstate": 0,
+    "react/no-danger": 0,
+    "no-useless-constructor": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "react/prop-types": "off",
+    "no-unused-vars": ["error", { "ignoreRestSiblings": true }]
+  },
+  "overrides": [
+    {
+      "files": ["cypress/integration/*.{spec,test}.js"],
+      "rules": {
+        "prettier/prettier": "warn",
+        "no-unused-vars": ["error", { "ignoreRestSiblings": true }],
+        "cypress/no-assigning-return-values": "error",
+        "cypress/assertion-before-screenshot": "warn",
+        "cypress/no-force": "warn",
+        "cypress/no-async-tests": "error",
+        "cypress/no-pause": "error"
+      },
+      "env": {
+        "cypress/globals": true,
+        "node": true
+      }
+    }
+  ]
+}
