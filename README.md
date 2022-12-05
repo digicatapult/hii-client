@@ -7,6 +7,7 @@ A GUI for interacting with HII data, to be updated....
 At **BUILD** time, `hii-client` is configured using environment variables in a `.env` file at the root of the `/src` folder:
 
 > TODO update these with what we need, leaving this as an example so it's easier to update, same config.js and env.js
+
 | variable      | required |   default   | description           |
 | :------------ | :------: | :---------: | :-------------------- |
 | DSBD_API_HOST |    N     | `localhost` | Morello API host name |
