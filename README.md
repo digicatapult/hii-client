@@ -1,6 +1,6 @@
 # hii-client
 
-A GUI for interacting with HII data, to be updated.... 
+Front-end for the Hydrogen Innovation Initiative
 
 ## Configuration
 
