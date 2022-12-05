@@ -1,0 +1,110 @@
+name: Lint and Test
+on:
+  push:
+    branches-ignore: ['main']
+
+jobs:
+  repo_ids:
+    runs-on: ubuntu-latest
+    outputs:
+      repo_name: ${{ steps.repo_ids.outputs.REPO_NAME }}
+      org_name: ${{ steps.repo_ids.outputs.ORG_NAME }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Get repository identifiers
+        id: repo_ids
+        run: |
+          REPO_NAME=$(echo "${{ github.event.repository.name }}" | tr '[:upper:]' '[:lower:]')
+          ORG_NAME=$(echo "${{ github.event.repository.owner.name }}" | tr '[:upper:]' '[:lower:]')
+          echo "::set-output name=REPO_NAME::$REPO_NAME"
+          echo "::set-output name=ORG_NAME::$ORG_NAME"
+
+  lint:
+    name: Run lint
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: actions/setup-node@master
+      with:
+        node-version: 16.x
+    - name: Cache Node.js modules
+      uses: actions/cache@v1
+      with:
+        path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
+        key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.OS }}-node-
+          ${{ runner.OS }}-
+    - name: Install Packages
+      run: npm ci
+    - name: Lint
+      run: npm run lint
+
+  dependency-check:
+    name: Run dependency check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with:
+          node-version: 16.x
+      - name: Cache Node.js modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
+          key: ${{ runner.OS }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-node-
+            ${{ runner.OS }}-
+      - name: Install Packages
+        run: npm ci
+      - name: Dependency Check
+        run: npm run depcheck
+
+  integration:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set Node.js 16.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+      - name: Install dependencies
+        run: npm ci
+      - name: Setup dependencies
+        run: docker-compose up -d
+      - name: Sleep
+        uses: kibertoad/wait-action@1.0.1
+        with:
+          time: '60s'
+      - name: Run cypress integration tests
+        uses: cypress-io/github-action@v4
+        with:
+          browser: chrome
+          record: false
+          headless: true
+          build: npm run build
+          start: npm start
+          wait-on: 'http://localhost:3000'
+
+  check-version:
+    name: 'Check version'
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - run: git fetch --depth=1 --tags origin
+      - name: Install yq
+        run: sudo snap install yq
+      - name: Check Build Version
+        id: get_version
+        run: ./scripts/check-version.sh
+        shell: bash
+      - name: Error if version is not increased
+        shell: bash
+        run: |
+          exit $([[ "${{steps.get_version.outputs.IS_NEW_VERSION}}" = "true" ]] && echo 0 || echo 1)
