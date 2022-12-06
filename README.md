@@ -8,12 +8,10 @@ At **BUILD** time, `hii-client` is configured using environment variables in a `
 
 > TODO update these with what we need, leaving this as an example so it's easier to update, same config.js and env.js
 
-| variable     | required |              default               | description                   |
-| :----------- | :------: | :--------------------------------: | :---------------------------- |
-| API_HOST     |    N     |            `localhost`             | API host name                 |
-| API_PORT     |    N     |               `3001`               | API port                      |
-| MAPBOX_TOKEN |    Y     |                 -                  | Token for your Mapbox account |
-| MAPBOX_STYLE |    N     | `mapbox://styles/mapbox/light-v11` | Mapbox style for the map      |
+| variable | required |   default   | description   |
+| :------- | :------: | :---------: | :------------ |
+| API_HOST |    N     | `localhost` | API host name |
+| API_PORT |    N     |   `3001`    | API port      |
 
 At **RUNTIME**, edit [`config.js`](./public/config.js). Default values:
 
