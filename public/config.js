@@ -1,6 +1,7 @@
 const config = {
-  dsbdApiPort: 3001,
-  dsbdApiHost: 'localhost',
+  apiPort: 3001,
+  apiHost: 'localhost',
+  mapboxToken: '',
 }
 
 if (!Window.config) {

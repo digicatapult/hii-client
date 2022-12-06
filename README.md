@@ -8,17 +8,18 @@ At **BUILD** time, `hii-client` is configured using environment variables in a `
 
 > TODO update these with what we need, leaving this as an example so it's easier to update, same config.js and env.js
 
-| variable      | required |   default   | description           |
-| :------------ | :------: | :---------: | :-------------------- |
-| DSBD_API_HOST |    N     | `localhost` | Morello API host name |
-| DSBD_API_PORT |    N     |   `3001`    | Morello API port      |
+| variable     | required |   default   | description                   |
+| :----------- | :------: | :---------: | :---------------------------- |
+| API_HOST     |    N     | `localhost` | API host name                 |
+| API_PORT     |    N     |   `3001`    | API port                      |
+| MAPBOX_TOKEN |    Y     |      -      | Token for your Mapbox account |
 
 At **RUNTIME**, edit [`config.js`](./public/config.js). Default values:
 
 ```js
 {
-  dsbdApiPort: 3001,
-  dsbdApiHost: 'localhost',
+  apiPort: 3001,
+  apiHost: 'localhost',
 }
 ```
 
