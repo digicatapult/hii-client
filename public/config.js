@@ -2,6 +2,7 @@ const config = {
   apiPort: 3001,
   apiHost: 'localhost',
   mapboxToken: '',
+  mapboxStyle: 'mapbox://styles/mapbox/light-v11',
 }
 
 if (!Window.config) {

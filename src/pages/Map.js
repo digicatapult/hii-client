@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react'
 import mapboxgl from '!mapbox-gl'
 import styled from 'styled-components'
 
-import { MAPBOX_TOKEN } from '../utils/env'
+import { MAPBOX_TOKEN, MAPBOX_STYLE } from '../utils/env'
 
 import * as parkruns from '../../docs/parkrun.json'
 
@@ -37,8 +37,7 @@ export default function Map() {
     if (map.current) return // initialize map only once
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      //style: 'mapbox://styles/jonathangray/clbb7hl3f000f14qtpi10wyfr',
-      style: 'mapbox://styles/mapbox/light-v11',
+      style: MAPBOX_STYLE,
       center: [lng, lat],
       zoom: zoom,
       cluster: true,
@@ -144,8 +143,7 @@ export default function Map() {
       // description HTML from its properties.
       map.current.on('click', 'unclustered-point', (e) => {
         const coordinates = e.features[0].geometry.coordinates.slice()
-        const mag = e.features[0].properties.mag
-        const tsunami = e.features[0].properties.tsunami === 1 ? 'yes' : 'no'
+        const name = e.features[0].properties.EventLongName
 
         // Ensure that if the map is zoomed out such that
         // multiple copies of the feature are visible, the
@@ -154,10 +152,10 @@ export default function Map() {
           coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360
         }
 
-        // new mapboxgl.Popup()
-        //   .setLngLat(coordinates)
-        //   .setHTML(`magnitude: ${mag}<br>Was there a tsunami?: ${tsunami}`)
-        //   .addTo(map.current)
+        new mapboxgl.Popup({ maxWidth: '500px' })
+          .setLngLat(coordinates)
+          .setHTML(`<h1>${name}</h1>`)
+          .addTo(map.current)
       })
 
       map.current.on('mouseenter', 'clusters', () => {

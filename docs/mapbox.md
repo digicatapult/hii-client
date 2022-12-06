@@ -102,5 +102,82 @@ GeoJSON example
 
 ## Location search
 
-Support for forward/reverse geocoding
-https://docs.mapbox.com/api/search/geocoding/
+The Mapbox API supports both [forward and reverse geocoding](https://docs.mapbox.com/api/search/geocoding/).
+
+### Forward geocoding
+
+The request `https://api.mapbox.com/geocoding/v5/mapbox.places/Eston%20Road%2C%20Middlesbrough%2C%20Cleveland%20TS6%206US.json?access_token=YOUR_MAPBOX_ACCESS_TOKEN` produces a response of an array of `features` (default length `5`) ordered by relevance. An example of a **single** feature:
+
+```json
+{
+  "id": "address.1570957797631746",
+  "type": "Feature",
+  "place_type": ["address"],
+  "relevance": 0.680556,
+  "properties": {
+    "accuracy": "street"
+  },
+  "text": "Eston Road",
+  "place_name": "Eston Road, South Bank, Middlesbrough, TS6 6US, United Kingdom",
+  "center": [-1.1595222, 54.5800431],
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-1.1595222, 54.5800431]
+  },
+  "context": [
+    {
+      "id": "postcode.13073534543",
+      "text": "TS6 6US"
+    },
+    {
+      "id": "locality.162507343",
+      "wikidata": "Q1616694",
+      "text": "South Bank"
+    },
+    {
+      "id": "place.7522383",
+      "wikidata": "Q171866",
+      "text": "Middlesbrough"
+    },
+    {
+      "id": "district.1009231",
+      "wikidata": "Q1434448",
+      "text": "Redcar And Cleveland"
+    },
+    {
+      "id": "region.9295",
+      "short_code": "GB-ENG",
+      "wikidata": "Q21",
+      "text": "England"
+    },
+    {
+      "id": "country.8783",
+      "short_code": "gb",
+      "wikidata": "Q145",
+      "text": "United Kingdom"
+    }
+  ]
+}
+```
+
+Some optional parameters that could be useful for this project:
+
+| Parameter    | Description                                                                                                                                   |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Autocomplete | When autocomplete is enabled, results will be included that start with the requested string, rather than just responses that match it exactly |
+| Country      | Limit results to one or more countries                                                                                                        |
+| Limit        | Specify the maximum number of results to return (up to 10)                                                                                    |
+| Proximity    | Bias the response to favour results that are closer to this location                                                                          |
+
+### Reverse geocoding
+
+A reverse geocoding request uses `{long,]{lat}.json` e.g. `https://api.mapbox.com/geocoding/v5/mapbox.places/-73.989,40.733.json?access_token=YOUR_MAPBOX_ACCESS_TOKEN` and responds with the same format as forward geocoding - a GeoJSON feature collection.
+
+## Testing
+
+Automated tests can be run without an access token by setting `testMode: true` when initialising the `Map`. This stops the `Map` producing visual output (the HTML `canvas`), but still loads local styles and tiles + allows use of the Mapbox API. Examples of what it's possible to test:
+
+- Listen for interaction events like click, mouseover etc on Layers.
+- Extract feature data with `map.queryRenderedFeatures()`.
+- Update view state center, pitch, bearing, `map.easeTo()`, `map.flyTo()` etc.
+- Interact with `Marker` and `Popup` instances.
