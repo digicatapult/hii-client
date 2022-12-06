@@ -3,8 +3,7 @@ import mapboxgl from '!mapbox-gl'
 import styled from 'styled-components'
 
 import { MAPBOX_TOKEN, MAPBOX_STYLE } from '../utils/env'
-
-import * as parkruns from '../../docs/parkrun.json'
+import * as parkruns from '../../docs/assets/parkrun.json'
 
 mapboxgl.accessToken = MAPBOX_TOKEN
 

@@ -43,10 +43,12 @@ Permanent (store results) and batch geocoding is paid.
 Tileset limits are based on zoom level e.g. 1,000,000km<sup>2</sup>/month of tilesets at zoom 11-13 can be created. Higher zoom (more detail) means lower km<sup>2</sup>/month. Hosting usage is the area of all tiles that were created multiplied by the number of days each tileset has existed in your account - hosting limit is the processing limit (of the same zoom level) multiplied by 30.
 
 Example of zoom level 12
-![zoom 12 example](./zoom-12-example.png)
+
+![zoom 12 example](./assets/zoom-12-example.png)
 
 Example of zoom level 15
-![zoom 15 example](./zoom-15-example.png)
+
+![zoom 15 example](./assets/zoom-15-example.png)
 
 ### Rate limits
 
@@ -169,9 +171,9 @@ Some optional parameters that could be useful for this project:
 | Limit        | Specify the maximum number of results to return (up to 10)                                                                                    |
 | Proximity    | Bias the response to favour results that are closer to this location                                                                          |
 
-### Reverse geocoding
+### Reverse geocoding
 
-A reverse geocoding request uses `{long,]{lat}.json` e.g. `https://api.mapbox.com/geocoding/v5/mapbox.places/-73.989,40.733.json?access_token=YOUR_MAPBOX_ACCESS_TOKEN` and responds with the same format as forward geocoding - a GeoJSON feature collection.
+A reverse geocoding request uses `{long],{lat}.json` e.g. `https://api.mapbox.com/geocoding/v5/mapbox.places/-73.989,40.733.json?access_token=YOUR_MAPBOX_ACCESS_TOKEN` and responds with the same format as forward geocoding - a GeoJSON feature collection.
 
 ## Testing
 
@@ -181,3 +183,7 @@ Automated tests can be run without an access token by setting `testMode: true` w
 - Extract feature data with `map.queryRenderedFeatures()`.
 - Update view state center, pitch, bearing, `map.easeTo()`, `map.flyTo()` etc.
 - Interact with `Marker` and `Popup` instances.
+
+## Proof of concept
+
+A proof of concept that shows clustering of [parkrun](https://images.parkrun.com/events.json) locations around the world is viewable on the [`mapbox-test` branch](https://github.com/digicatapult/hii-client/tree/mapbox-test).
