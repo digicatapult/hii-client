@@ -1,8 +1,5 @@
-const DSBD_API_HOST =
-  process.env.DSBD_API_HOST || Window.config.dsbdApiHost || 'localhost'
-const DSBD_API_PORT =
-  process.env.DSBD_API_PORT || Window.config.dsbdApiPort || 3001
-const DSBD_API_URL = `http://${DSBD_API_HOST}:${DSBD_API_PORT}`
-// keeping these env variables as an example so when we update we can use this as reference
+const API_HOST = process.env.API_HOST || Window.config.apiHost || 'localhost'
+const API_PORT = process.env.API_PORT || Window.config.apiPort || 3001
+const API_URL = `http://${API_HOST}:${API_PORT}`
 
-export { DSBD_API_HOST, DSBD_API_PORT, DSBD_API_URL }
+export { API_HOST, API_PORT, API_URL }
