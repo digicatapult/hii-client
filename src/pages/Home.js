@@ -41,15 +41,21 @@ const SearchWrapper = styled.div`
   background: #216968;
 `
 
+const FullScreenGrid = styled(Grid)`
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden; //TODO fix map overflow
+`
+
 export default function Home() {
   return (
-    <Grid
+    <FullScreenGrid
       areas={[
-        ['home', 'header', 'header'],
-        ['sidebar', 'main', 'main'],
+        ['home', 'header'],
+        ['sidebar', 'main'],
       ]}
-      columns={['minmax(10%, 20%)', '1fr', '1fr']}
-      rows={['80px', '1000px']} //TODO make 2nd row use rest of vh
+      columns={['minmax(min-content, 1fr)', '3fr']}
+      rows={['80px', 'minmax(0, 1fr)']}
     >
       <Grid.Panel area="home">
         <HomeBar></HomeBar>
@@ -112,6 +118,6 @@ export default function Home() {
           }}
         />
       </Grid.Panel>
-    </Grid>
+    </FullScreenGrid>
   )
 }
