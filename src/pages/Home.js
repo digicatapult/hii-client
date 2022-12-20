@@ -74,9 +74,9 @@ export default function Home() {
           </SearchWrapper>
           <Drawer title="FILTERS" color="white" background="#27847A"></Drawer>
           <ListWrapper>
-            {geojson.features.map((i) => (
+            {geojson.features.map((i, index) => (
               <ListCard
-                key={i}
+                key={index} //TODO assign ID?
                 title={`${i.properties['Name']}`}
                 subtitle={`${i.properties['Name of Lead Partner']}`}
                 orientation="left"
@@ -94,8 +94,12 @@ export default function Home() {
         <Map
           token={process.env.MAPBOX_TOKEN}
           sourceJson={geojson}
-          style={process.env.MAPBOX_STYLE}
-          initialState={{ height: '100%', width: '100%', zoom: 5.5 }}
+          initialState={{
+            height: '100%',
+            width: '100%',
+            zoom: 5.5,
+            style: process.env.MAPBOX_STYLE,
+          }}
           cluster={true}
           clusterOptions={{
             clusterColor: '#216968',
