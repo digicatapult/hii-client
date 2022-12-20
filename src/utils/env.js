@@ -4,7 +4,7 @@ const MAPBOX_TOKEN = process.env.MAPBOX_TOKEN || Window.config.mapboxToken
 const MAPBOX_STYLE =
   process.env.MAPBOX_STYLE ||
   Window.config.mapboxStyle ||
-  'mapbox://styles/mapbox/light-v11'
+  'mapbox://styles/jonathangray/clbw89spy000n14t1ezcttd3e'
 
 const API_URL = `http://${API_HOST}:${API_PORT}`
 

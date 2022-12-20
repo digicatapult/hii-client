@@ -19,11 +19,6 @@ const HomeBar = styled.div`
   margin-left: 20px;
 `
 
-const DropdownWrapper = styled.div`
-  width: 100%;
-  position: relative;
-`
-
 const SearchHost = styled.div`
   display: flex;
   justify-content: center;
@@ -36,12 +31,15 @@ export default function Home() {
   return (
     <Grid
       areas={[
-        ['sidebar', 'header', 'header'],
-        ['main', 'main', 'main'],
+        ['home', 'header', 'header'],
+        ['sidebar', 'main', 'main'],
       ]}
       columns={['minmax(10%, 20%)', '1fr', '1fr']}
       rows={['80px', 'auto']}
     >
+      <Grid.Panel area="home">
+        <HomeBar></HomeBar>
+      </Grid.Panel>
       <Grid.Panel area="header">
         <AppBar
           shadow={false}
@@ -56,22 +54,17 @@ export default function Home() {
         </AppBar>
       </Grid.Panel>
       <Grid.Panel area="sidebar">
-        <HomeBar></HomeBar>
-        <DropdownWrapper>
-          <SearchHost
-            background="#216968"
-            containerWidth="100%"
-            fontSize="1rem"
-          >
-            <Search placeholder="Search" color="#216968" background="white" />
-          </SearchHost>
-          <Drawer title="FILTERS" color="white" background="#27847A"></Drawer>
-        </DropdownWrapper>
+        <SearchHost background="#216968" containerWidth="100%" fontSize="1rem">
+          <Search placeholder="Search" color="#216968" background="white" />
+        </SearchHost>
+        <Drawer title="FILTERS" color="white" background="#27847A"></Drawer>
       </Grid.Panel>
+
       <Grid.Panel area="main">
         <Map
           token={process.env.MAPBOX_TOKEN}
           sourceJson={geojson}
+          style={process.env.MAPBOX_STYLE}
           initialState={{ height: '1200px', width: '100%', zoom: 5.5 }}
           cluster={true}
           clusterOptions={{
