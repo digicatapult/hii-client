@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo, useState } from 'react'
 import styled from 'styled-components'
 import {
   Grid,
@@ -23,6 +23,7 @@ const HomeBar = styled.div`
 const ListWrapper = styled.div`
   display: grid;
   height: 100%;
+  align-content: start;
   gap: 5px;
   font-size: 1em;
   overflow: scroll;
@@ -43,6 +44,24 @@ const FullScreenGrid = styled(Grid)`
 `
 
 export default function Home() {
+  const [search, setSearch] = useState(null)
+
+  const filteredGeoJson = useMemo(() => {
+    if (search === null) {
+      return geojson
+    }
+
+    const { features, ...rest } = geojson
+    return {
+      ...rest,
+      features: features.filter(({ properties }) =>
+        Object.values(properties).some(
+          (val) => `${val}`.toLowerCase().indexOf(search) !== -1
+        )
+      ),
+    }
+  }, [search])
+
   return (
     <FullScreenGrid
       areas={[
@@ -72,7 +91,12 @@ export default function Home() {
       </Grid.Panel>
       <Grid.Panel area="search">
         <SearchWrapper>
-          <Search placeholder="Search" color="#216968" background="white" />
+          <Search
+            placeholder="Search"
+            color="#216968"
+            background="white"
+            onSubmit={(s) => setSearch(s === null ? s : s.toLowerCase())}
+          />
         </SearchWrapper>
       </Grid.Panel>
       <Grid.Panel area="filters">
@@ -80,7 +104,7 @@ export default function Home() {
       </Grid.Panel>
       <Grid.Panel area="projects">
         <ListWrapper>
-          {geojson.features.map((i, index) => (
+          {filteredGeoJson.features.map((i, index) => (
             <ListCard
               key={index} //TODO assign ID?
               title={`${i.properties['Name']}`}
@@ -99,7 +123,7 @@ export default function Home() {
       <Grid.Panel area="main">
         <Map
           token={process.env.MAPBOX_TOKEN}
-          sourceJson={geojson}
+          sourceJson={filteredGeoJson}
           initialState={{
             height: '100%',
             width: '100%',
