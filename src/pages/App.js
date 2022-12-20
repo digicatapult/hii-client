@@ -4,6 +4,9 @@ import Router from '../utils/Router'
 
 const Root = styled.div`
   font-family: 'Roboto', sans-serif;
+  height: 100vh;
+  width: 100vw;
+  display: grid;
 `
 
 export default function App() {

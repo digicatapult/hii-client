@@ -6,6 +6,7 @@ import {
   AppBar,
   Search,
   Drawer,
+  ListCard,
 } from '@digicatapult/ui-component-library'
 
 import Logo from '../assets/images/hii-logo.png'
@@ -19,12 +20,25 @@ const HomeBar = styled.div`
   margin-left: 20px;
 `
 
-const SearchHost = styled.div`
+const Sidebar = styled.div`
+  display: grid;
+  height: 100%;
+  grid-template-rows: auto auto 1fr;
+`
+
+const ListWrapper = styled.div`
+  display: grid;
+  gap: 5px;
+  font-size: 1em;
+  overflow: scroll;
+  padding: 5px 0 0 5px;
+`
+
+const SearchWrapper = styled.div`
   display: flex;
   justify-content: center;
-  width: ${({ containerWidth }) => containerWidth};
-  background: ${({ background }) => background};
-  font-size: ${({ fontSize }) => fontSize};
+  font-size: 1rem;
+  background: #216968;
 `
 
 export default function Home() {
@@ -35,7 +49,7 @@ export default function Home() {
         ['sidebar', 'main', 'main'],
       ]}
       columns={['minmax(10%, 20%)', '1fr', '1fr']}
-      rows={['80px', 'auto']}
+      rows={['80px', '1000px']} //TODO make 2nd row use rest of vh
     >
       <Grid.Panel area="home">
         <HomeBar></HomeBar>
@@ -54,10 +68,28 @@ export default function Home() {
         </AppBar>
       </Grid.Panel>
       <Grid.Panel area="sidebar">
-        <SearchHost background="#216968" containerWidth="100%" fontSize="1rem">
-          <Search placeholder="Search" color="#216968" background="white" />
-        </SearchHost>
-        <Drawer title="FILTERS" color="white" background="#27847A"></Drawer>
+        <Sidebar>
+          <SearchWrapper>
+            <Search placeholder="Search" color="#216968" background="white" />
+          </SearchWrapper>
+          <Drawer title="FILTERS" color="white" background="#27847A"></Drawer>
+          <ListWrapper>
+            {geojson.features.map((i) => (
+              <ListCard
+                key={i}
+                title={`${i.properties['Name']}`}
+                subtitle={`${i.properties['Name of Lead Partner']}`}
+                orientation="left"
+                background="#DCE5E7"
+                height="5em"
+                width="100%"
+                onClick={(feature) => {
+                  console.log(feature)
+                }}
+              />
+            ))}
+          </ListWrapper>
+        </Sidebar>
       </Grid.Panel>
 
       <Grid.Panel area="main">
@@ -65,7 +97,7 @@ export default function Home() {
           token={process.env.MAPBOX_TOKEN}
           sourceJson={geojson}
           style={process.env.MAPBOX_STYLE}
-          initialState={{ height: '1200px', width: '100%', zoom: 5.5 }}
+          initialState={{ height: '100%', width: '100%', zoom: 5.5 }}
           cluster={true}
           clusterOptions={{
             clusterColor: '#216968',
