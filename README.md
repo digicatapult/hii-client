@@ -22,7 +22,7 @@ At **RUNTIME**, edit [`config.js`](./public/config.js). Default values:
   apiPort: 3001,
   apiHost: 'localhost',
   mapboxToken: 'YOUR_TOKEN',
-  mapboxStyle: 'mapbox://styles/mapbox/light-v11',
+  mapboxStyle: 'mapbox://styles/jonathangray/clbw89spy000n14t1ezcttd3e',
 }
 ```
 
