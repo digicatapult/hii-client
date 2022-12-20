@@ -27,7 +27,6 @@
   },
   "rules": {
     "no-console": "error",
-    "jsx-quotes": ["error", "prefer-single"],
     "prettier/prettier": ["error", { "singleQuote": true }],
     "react/jsx-filename-extension": 0,
     "react/require-default-props": 0,

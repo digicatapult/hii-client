@@ -1,6 +1,8 @@
 const config = {
   apiPort: 3001,
   apiHost: 'localhost',
+  mapboxToken: '',
+  mapboxStyle: 'mapbox://styles/jonathangray/clbw89spy000n14t1ezcttd3e',
 }
 
 if (!Window.config) {
