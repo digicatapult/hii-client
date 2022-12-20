@@ -20,14 +20,9 @@ const HomeBar = styled.div`
   margin-left: 20px;
 `
 
-const Sidebar = styled.div`
-  display: grid;
-  height: 100%;
-  grid-template-rows: auto auto 1fr;
-`
-
 const ListWrapper = styled.div`
   display: grid;
+  height: 100%;
   gap: 5px;
   font-size: 1em;
   overflow: scroll;
@@ -52,10 +47,12 @@ export default function Home() {
     <FullScreenGrid
       areas={[
         ['home', 'header'],
-        ['sidebar', 'main'],
+        ['search', 'main'],
+        ['filters', 'main'],
+        ['projects', 'main'],
       ]}
       columns={['minmax(min-content, 1fr)', '3fr']}
-      rows={['80px', 'minmax(0, 1fr)']}
+      rows={['80px', 'min-content', 'min-content', 'minmax(0, 1fr)']}
     >
       <Grid.Panel area="home">
         <HomeBar></HomeBar>
@@ -73,27 +70,29 @@ export default function Home() {
           <AppBar.Item>CONTACT US</AppBar.Item>
         </AppBar>
       </Grid.Panel>
-      <Grid.Panel area="sidebar">
-        <Sidebar>
-          <SearchWrapper>
-            <Search placeholder="Search" color="#216968" background="white" />
-          </SearchWrapper>
-          <Drawer title="FILTERS" color="white" background="#27847A"></Drawer>
-          <ListWrapper>
-            {geojson.features.map((i, index) => (
-              <ListCard
-                key={index} //TODO assign ID?
-                title={`${i.properties['Name']}`}
-                subtitle={`${i.properties['Name of Lead Partner']}`}
-                orientation="left"
-                background="#DCE5E7"
-                height="5em"
-                width="100%"
-                onClick={() => {}}
-              />
-            ))}
-          </ListWrapper>
-        </Sidebar>
+      <Grid.Panel area="search">
+        <SearchWrapper>
+          <Search placeholder="Search" color="#216968" background="white" />
+        </SearchWrapper>
+      </Grid.Panel>
+      <Grid.Panel area="filters">
+        <Drawer title="FILTERS" color="white" background="#27847A"></Drawer>
+      </Grid.Panel>
+      <Grid.Panel area="projects">
+        <ListWrapper>
+          {geojson.features.map((i, index) => (
+            <ListCard
+              key={index} //TODO assign ID?
+              title={`${i.properties['Name']}`}
+              subtitle={`${i.properties['Name of Lead Partner']}`}
+              orientation="left"
+              background="#DCE5E7"
+              height="5em"
+              width="100%"
+              onClick={() => {}}
+            />
+          ))}
+        </ListWrapper>
       </Grid.Panel>
 
       <Grid.Panel area="main">
