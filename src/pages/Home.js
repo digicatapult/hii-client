@@ -83,9 +83,7 @@ export default function Home() {
                 background="#DCE5E7"
                 height="5em"
                 width="100%"
-                onClick={(feature) => {
-                  console.log(feature)
-                }}
+                onClick={() => {}}
               />
             ))}
           </ListWrapper>
@@ -106,9 +104,7 @@ export default function Home() {
           pointOptions={{
             pointColor: '#216968',
             pointRadius: 5,
-            onPointClick: (feature) => {
-              console.log(feature)
-            },
+            onPointClick: () => {},
           }}
         />
       </Grid.Panel>
