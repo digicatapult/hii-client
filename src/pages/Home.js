@@ -89,6 +89,7 @@ export default function Home() {
               background="#DCE5E7"
               height="5em"
               width="100%"
+              flashColor="#27847A"
               onClick={() => {}}
             />
           ))}
