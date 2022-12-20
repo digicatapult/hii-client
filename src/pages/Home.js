@@ -9,6 +9,7 @@ import {
 } from '@digicatapult/ui-component-library'
 
 import Logo from '../assets/images/hii-logo.png'
+import geojson from '../assets/hii.json'
 
 const HomeBar = styled.div`
   height: 100%;
@@ -70,7 +71,20 @@ export default function Home() {
       <Grid.Panel area="main">
         <Map
           token={process.env.MAPBOX_TOKEN}
+          sourceJson={geojson}
           initialState={{ height: '1200px', width: '100%', zoom: 5.5 }}
+          cluster={true}
+          clusterOptions={{
+            clusterColor: '#216968',
+            clusterRadius: 14,
+          }}
+          pointOptions={{
+            pointColor: '#216968',
+            pointRadius: 5,
+            onPointClick: (feature) => {
+              console.log(feature)
+            },
+          }}
         />
       </Grid.Panel>
     </Grid>
