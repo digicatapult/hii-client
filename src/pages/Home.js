@@ -43,6 +43,25 @@ const FullScreenGrid = styled(Grid)`
   overflow: hidden; //TODO fix map overflow
 `
 
+const GetTypeColour = (projectType) => {
+  switch (projectType) {
+    case 'Feasability Study':
+      return '#27847A'
+    case 'Funding/Competition':
+      return '#80CC72'
+    case 'Testing & certification':
+      return '#B6EFA0'
+    case 'Innovation programme':
+      return '#DFE667'
+    case 'R&D facility':
+      return '#C8B88A'
+    case 'Government strategy':
+      return '#F1DDDF'
+    default:
+      return '#27847A'
+  }
+}
+
 export default function Home() {
   const [search, setSearch] = useState(null)
 
@@ -113,7 +132,7 @@ export default function Home() {
               background="#DCE5E7"
               height="5em"
               width="100%"
-              flashColor="#27847A"
+              flashColor={GetTypeColour(i.properties['Project Type'])}
               onClick={() => {}}
             />
           ))}
