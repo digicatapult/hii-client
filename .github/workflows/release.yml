@@ -175,3 +175,30 @@ jobs:
           name: Latest ${{ needs.check-version.outputs.version }}
           generate_release_notes: true
           files: hii-client-build.tar.gz
+
+  deploy-site:
+    name: 'Deploy site'
+    needs: [preconditions, dependency-check, integration, check-version, lint]
+    runs-on: ubuntu-latest
+    if: ${{ needs.check-version.outputs.is_new_version == 'true' }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set Node.js 16.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+      - name: Install dependencies
+        run: npm ci
+      - name: Build site
+        run: npm run build
+        env:
+          MAPBOX_TOKEN: ${{ secrets.MAPBOX_TOKEN }}
+          #MAPBOX_STYLE: ${{ secrets.MAPBOX_STYLE }}
+          #API_HOST: ${{ secrets.API_HOST }}
+          #API_PORT: ${{ secrets.API_PORT }}
+      - name: Deploy Site
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build

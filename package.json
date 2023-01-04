@@ -2,6 +2,7 @@
   "name": "@digicatapult/hii-client",
   "version": "0.4.0",
   "description": "User interface for HII project",
+  "homepage": "https://digicatapult.github.io/hii-client/",
   "main": "src/index.js",
   "scripts": {
     "lint": "eslint --ext .js .",
