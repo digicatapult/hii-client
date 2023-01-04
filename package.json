@@ -9,7 +9,7 @@
     "lint:fix": "eslint --ext .js ./src --fix",
     "dev": "webpack-dev-server --mode=development",
     "start": "serve -s ./build",
-    "build": "webpack --mode=production --env MAPBOX_TOKEN=pk.eyJ1Ijoiam9uYXRoYW5ncmF5IiwiYSI6ImNsYjZydG1nbDAza2szbm1jdjh1eTdsdWYifQ.qwe6dqrATeAfcus-3ggQcw",
+    "build": "webpack --mode=production",
     "depcheck": "depcheck --ignores=*loader,webpack-cli",
     "test:dev": "npx cypress open-ct",
     "test:integration": "npx cypress run"
