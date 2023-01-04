@@ -6,8 +6,13 @@ const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = (vars) => {
   const env = {
-    ...vars,
     ...dotenv.config({ path: path.join(__dirname, '.env') }).parsed,
+    ...{
+      MAPBOX_TOKEN: process.env.MAPBOX_TOKEN,
+      MAPBOX_STYLE: process.env.MAPBOX_STYLE,
+
+    },
+    ...vars,
   }
 
   return {
