@@ -194,9 +194,6 @@ jobs:
         run: npm run build
         env:
           MAPBOX_TOKEN: ${{ secrets.MAPBOX_TOKEN }}
-          #MAPBOX_STYLE: ${{ secrets.MAPBOX_STYLE }}
-          #API_HOST: ${{ secrets.API_HOST }}
-          #API_PORT: ${{ secrets.API_PORT }}
       - name: Deploy Site
         uses: peaceiris/actions-gh-pages@v3
         with:
