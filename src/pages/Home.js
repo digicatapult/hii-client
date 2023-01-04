@@ -9,14 +9,12 @@ import {
   ListCard,
 } from '@digicatapult/ui-component-library'
 
-import Logo from '../assets/images/hii-logo.png'
+import LogoPNG from '../assets/images/hii-logo.png'
+import LogoWebP from '../assets/images/hii-logo.webp'
 import geojson from '../assets/hii.json'
 
-const HomeBar = styled.div`
+const HomeBar = styled.picture`
   height: 100%;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-image: url(${Logo});
   margin-left: 20px;
 `
 
@@ -86,7 +84,11 @@ export default function Home() {
       rows={['80px', 'min-content', 'min-content', 'minmax(0, 1fr)']}
     >
       <Grid.Panel area="home">
-        <HomeBar></HomeBar>
+        <HomeBar>
+          <source srcSet={LogoWebP} type="image/webp" />
+          <source srcSet={LogoPNG} type="image/png" />
+          <img src={LogoPNG} alt="HII Initiative Logo" height="80px" />
+        </HomeBar>
       </Grid.Panel>
       <Grid.Panel area="header">
         <AppBar
