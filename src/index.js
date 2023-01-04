@@ -1,14 +1,17 @@
 import React from 'react'
-import ReactDOM from 'react-dom/client'
+import ReactDOM from 'react-dom'
 
 import App from './pages/App'
 import GlobalFonts from './assets/fonts/fonts'
 
-const root = ReactDOM.createRoot(document.getElementById('root'))
+// available in react 18?
+//const root = ReactDOM.createRoot(document.getElementById('root'));
 
-root.render(
+const Root = () => (
   <React.StrictMode>
     <GlobalFonts />
     <App />
   </React.StrictMode>
 )
+
+ReactDOM.render(<Root />, document.getElementById('root'))
