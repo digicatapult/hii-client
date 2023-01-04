@@ -43,13 +43,16 @@ const FullScreenGrid = styled(Grid)`
   overflow: hidden; //TODO fix map overflow
 `
 
-const ProjectTypeColour = {
-  'Feasability Study': '#27847A',
-  'Funding/Competition': '#80CC72',
-  'Testing & certification': '#B6EFA0',
-  'Innovation programme': '#DFE667',
-  'R&D facility': '#C8B88A',
-  'Government strategy': '#F1DDDF',
+const GetProjectTypeColour = (project) => {
+  const colours = {
+    'Feasability Study': '#27847A',
+    'Funding/Competition': '#80CC72',
+    'Testing & certification': '#B6EFA0',
+    'Innovation programme': '#DFE667',
+    'R&D facility': '#C8B88A',
+    'Government strategy': '#F1DDDF',
+  }
+  return colours[project] ?? '#27847A'
 }
 
 export default function Home() {
@@ -122,9 +125,7 @@ export default function Home() {
               background="#DCE5E7"
               height="5em"
               width="100%"
-              flashColor={
-                ProjectTypeColour[i.properties['Project Type']] || '#27847A'
-              }
+              flashColor={GetProjectTypeColour(i.properties['Project Type'])}
               onClick={() => {}}
             />
           ))}
