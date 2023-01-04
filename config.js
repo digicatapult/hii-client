@@ -1,0 +1,1 @@
+const config={apiPort:3001,apiHost:"localhost",mapboxToken:"",mapboxStyle:"mapbox://styles/jonathangray/clbw89spy000n14t1ezcttd3e"};Window.config||(Window.config={}),Window.config=Object.keys(config).reduce(((o,n)=>(o.hasOwnProperty(n)||(o[n]=config[n]),o)),{});
