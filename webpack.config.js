@@ -44,6 +44,17 @@ module.exports = (vars) => {
           },
         },
         {
+          test: /\.(js|jsx)$/,
+          include: /node_modules\/@digicatapult\/ui-component-library/,
+          use: {
+            loader: 'babel-loader',
+          },
+          type: 'javascript/auto',
+          resolve: {
+            fullySpecified: false,
+          },
+        },
+        {
           test: /\.(png|svg|jpg|jpeg|gif|webp|avif|svg|woff|woff2)$/i,
           type: 'asset',
         },
