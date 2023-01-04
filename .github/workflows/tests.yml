@@ -75,12 +75,6 @@ jobs:
           node-version: 16.x
       - name: Install dependencies
         run: npm ci
-      #- name: Setup dependencies
-      #  run: docker-compose up -d
-      - name: Sleep
-        uses: kibertoad/wait-action@1.0.1
-        with:
-          time: '60s'
       - name: Run cypress integration tests
         uses: cypress-io/github-action@v4
         with:
