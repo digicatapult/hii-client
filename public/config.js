@@ -1,6 +1,7 @@
 const config = {
   mapboxToken: '',
   mapboxStyle: 'mapbox://styles/mapbox/light-v11',
+  publicBasePath: '/',
 }
 
 if (!Window.config) {

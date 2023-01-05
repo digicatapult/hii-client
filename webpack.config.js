@@ -10,6 +10,7 @@ module.exports = (vars) => {
     ...{
       MAPBOX_TOKEN: process.env.MAPBOX_TOKEN,
       MAPBOX_STYLE: process.env.MAPBOX_STYLE,
+      PUBLIC_BASE_PATH: process.env.PUBLIC_BASE_PATH,
     },
     ...vars,
   }
