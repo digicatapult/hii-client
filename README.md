@@ -10,19 +10,15 @@ At **BUILD** time, `hii-client` is configured using environment variables in a `
 
 | variable     | required |                         default                          | description                                                   |
 | :----------- | :------: | :------------------------------------------------------: | :------------------------------------------------------------ |
-| API_HOST     |    N     |                       `localhost`                        | API host name                                                 |
-| API_PORT     |    N     |                          `3001`                          | API port                                                      |
 | MAPBOX_TOKEN |    Y     |                            -                             | Required to render the map. Token for your Mapbox account     |
-| MAPBOX_STYLE |    N     | `mapbox://styles/jonathangray/clbw89spy000n14t1ezcttd3e` | Map [style](https://docs.mapbox.com/mapbox-gl-js/style-spec/) |
+| MAPBOX_STYLE |    N     | `mapbox://styles/mapbox/light-v11` | Map [style](https://docs.mapbox.com/mapbox-gl-js/style-spec/) |
 
 At **RUNTIME**, edit [`config.js`](./public/config.js). Default values:
 
 ```js
 {
-  apiPort: 3001,
-  apiHost: 'localhost',
   mapboxToken: 'YOUR_TOKEN',
-  mapboxStyle: 'mapbox://styles/jonathangray/clbw89spy000n14t1ezcttd3e',
+  mapboxStyle: 'mapbox://styles/mapbox/light-v11',
 }
 ```
 

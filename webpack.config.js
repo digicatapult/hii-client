@@ -2,7 +2,6 @@ const path = require('path')
 const dotenv = require('dotenv')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { DefinePlugin } = require('webpack')
-const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = (vars) => {
   const env = {
@@ -10,7 +9,6 @@ module.exports = (vars) => {
     ...{
       MAPBOX_TOKEN: process.env.MAPBOX_TOKEN,
       MAPBOX_STYLE: process.env.MAPBOX_STYLE,
-
     },
     ...vars,
   }
@@ -26,7 +24,12 @@ module.exports = (vars) => {
       historyApiFallback: true,
       port: 3000,
     },
-    devtool: 'source-map',
+    optimization: {
+      nodeEnv: 'production',
+      minimize: true,
+      concatenateModules: true,
+    },
+    devtool: 'cheap-source-map',
     module: {
       rules: [
         {
@@ -36,14 +39,24 @@ module.exports = (vars) => {
             loader: 'babel-loader',
           },
           type: 'javascript/auto',
+          resolve: {
+            fullySpecified: false,
+          },
         },
         {
-          test: /\.(png|svg|jpg|jpeg|gif|webp|avif|svg)$/i,
-          type: 'asset/resource',
+          test: /\.(js|jsx)$/,
+          include: /node_modules\/@digicatapult\/ui-component-library/,
+          use: {
+            loader: 'babel-loader',
+          },
+          type: 'javascript/auto',
+          resolve: {
+            fullySpecified: false,
+          },
         },
         {
-          test: /\.(woff|woff2)$/,
-          loader: 'url-loader',
+          test: /\.(png|svg|jpg|jpeg|gif|webp|avif|svg|woff|woff2)$/i,
+          type: 'asset',
         },
         {
           test: /\.css$/i,
@@ -64,11 +77,10 @@ module.exports = (vars) => {
       new HtmlWebpackPlugin({
         template: 'src/index.html',
       }),
-      new CopyPlugin({
-        patterns: [
-          { from: path.resolve(__dirname, 'public', '*'), to: '[name][ext]' },
-        ],
-      }),
     ],
+    externals: {
+      react: 'React',
+      'react-dom': 'ReactDOM',
+    },
   }
 }
