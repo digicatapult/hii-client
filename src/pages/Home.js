@@ -53,6 +53,24 @@ const GetProjectTypeColour = (project) => {
   return colours[project] ?? '#27847A'
 }
 
+const pointColourExpression = [
+  'match',
+  ['get', 'Project Type'],
+  'Feasability Study',
+  '#27847A',
+  'Funding/Competition',
+  '#80CC72',
+  'Testing & certification',
+  '#B6EFA0',
+  'Innovation programme',
+  '#DFE667',
+  'R&D facility',
+  '#C8B88A',
+  'Government strategy',
+  '#F1DDDF',
+  '#27847A',
+]
+
 export default function Home() {
   const [search, setSearch] = useState(null)
 
@@ -150,7 +168,7 @@ export default function Home() {
             clusterRadius: 14,
           }}
           pointOptions={{
-            pointColor: '#216968',
+            pointExpression: pointColourExpression,
             pointRadius: 5,
             onPointClick: () => {},
           }}
