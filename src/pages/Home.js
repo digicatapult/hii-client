@@ -9,6 +9,7 @@ import {
   ListCard,
 } from '@digicatapult/ui-component-library'
 
+import Dialog from './components/Dialog'
 import LogoPNG from '../assets/images/hii-logo.png'
 import LogoWebP from '../assets/images/hii-logo.webp'
 import geojson from '../assets/hii.json'
@@ -73,6 +74,8 @@ const pointColourExpression = [
 
 export default function Home() {
   const [search, setSearch] = useState(null)
+  const [showDialog, setShowDialog] = useState(false)
+  const [selectedFeature, setSelectedFeature] = useState(null)
 
   const filteredGeoJson = useMemo(() => {
     if (search === null) {
@@ -146,7 +149,9 @@ export default function Home() {
               height="5em"
               width="100%"
               flashColor={GetProjectTypeColour(i.properties['Project Type'])}
-              onClick={() => {}}
+              onClick={(title) => {
+                console.log(title)
+              }}
             />
           ))}
         </ListWrapper>
@@ -170,10 +175,19 @@ export default function Home() {
           pointOptions={{
             pointExpression: pointColourExpression,
             pointRadius: 5,
-            onPointClick: () => {},
+            onPointClick: (feature) => {
+              setSelectedFeature(feature)
+              setShowDialog(true)
+            },
           }}
         />
       </Grid.Panel>
+
+      {showDialog && (
+        <Grid.Panel area="main">
+          <Dialog feature={selectedFeature} />
+        </Grid.Panel>
+      )}
     </FullScreenGrid>
   )
 }
