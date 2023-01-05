@@ -1,6 +1,6 @@
 const config = {
   mapboxToken: '',
-  mapboxStyle: 'mapbox://styles/mapbox/light-v11',
+  mapboxStyle: 'mapbox://styles/digicat-mapbox/clcj7eskl001q14o5bed5oam4',
   publicBasePath: '/',
 }
 

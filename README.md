@@ -8,17 +8,17 @@ At **BUILD** time, `hii-client` is configured using environment variables in a `
 
 > TODO update these with what we need, leaving this as an example so it's easier to update, same config.js and env.js
 
-| variable     | required |                         default                          | description                                                   |
-| :----------- | :------: | :------------------------------------------------------: | :------------------------------------------------------------ |
-| MAPBOX_TOKEN |    Y     |                            -                             | Required to render the map. Token for your Mapbox account     |
-| MAPBOX_STYLE |    N     | `mapbox://styles/mapbox/light-v11` | Map [style](https://docs.mapbox.com/mapbox-gl-js/style-spec/) |
+| variable     | required |                          default                           | description                                                   |
+| :----------- | :------: | :--------------------------------------------------------: | :------------------------------------------------------------ |
+| MAPBOX_TOKEN |    Y     |                             -                              | Required to render the map. Token for your Mapbox account     |
+| MAPBOX_STYLE |    N     | `mapbox://styles/digicat-mapbox/clcj7eskl001q14o5bed5oam4` | Map [style](https://docs.mapbox.com/mapbox-gl-js/style-spec/) |
 
 At **RUNTIME**, edit [`config.js`](./public/config.js). Default values:
 
 ```js
 {
   mapboxToken: 'YOUR_TOKEN',
-  mapboxStyle: 'mapbox://styles/mapbox/light-v11',
+  mapboxStyle: 'mapbox://styles/digicat-mapbox/clcj7eskl001q14o5bed5oam4',
 }
 ```
 
