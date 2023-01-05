@@ -194,6 +194,7 @@ jobs:
         run: npm run build
         env:
           MAPBOX_TOKEN: ${{ secrets.MAPBOX_TOKEN }}
+          PUBLIC_BASE_PATH: /hii-client
       - name: Deploy Site
         uses: peaceiris/actions-gh-pages@v3
         with:
