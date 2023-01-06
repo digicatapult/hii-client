@@ -13,7 +13,9 @@ const Wrapper = styled.div`
   left: 5ch;
 `
 
-export default function Dialog({ open, setOpen }) {
+export default function Dialog({ open, setOpen, feature }) {
+  const properties = feature?.properties
+
   const dialogRef = useRef(null)
   useEffect(() => {
     const dialog = dialogRef.current
@@ -31,15 +33,15 @@ export default function Dialog({ open, setOpen }) {
     return () => dialog?.removeEventListener('close', listener)
   }, [open, setOpen])
 
-  //   console.log(feature)
+  console.log(feature)
   return (
     <Wrapper>
       <DialogComponent ref={dialogRef} includeClose={true}>
         <Section
           headingLevel={2}
-          title="Name"
+          title={properties?.['Name']}
           padding="1em 1.5em"
-          width="47ch"
+          width="60ch"
           headingSize="2em"
           background="white"
         >
@@ -54,14 +56,11 @@ export default function Dialog({ open, setOpen }) {
             gap="1em"
           >
             <Grid.Panel area="lead">
-              <span>Name of Lead Partner</span>
+              <span>{properties?.['Name of Lead Partner']}</span>
             </Grid.Panel>
 
             <Grid.Panel area="link" justifySelf="right">
-              <Link
-                text="Link to project"
-                href="https://gtr.ukri.org/projects?ref=EP%2FG06279X%2F1"
-              />
+              <Link text="Link to project" href={properties?.['Link']} />
             </Grid.Panel>
 
             <Grid.Panel area="details">
@@ -73,13 +72,7 @@ export default function Dialog({ open, setOpen }) {
                 background="#dfe667"
                 headingSize="1em"
               >
-                Scope / goal - The £33 million Low Carbon Hydrogen Supply
-                competition aimed to accelerate the development of low carbon
-                bulk hydrogen supply solutions in specific sectors. It was aimed
-                at projects at a TRL of 4 to 7, which could result in lower
-                capital or operating costs when compared to Steam Methane
-                Reformation with Carbon Capture & Storage (SMR+CCS), or improve
-                the carbon capture rates at a comparable cost.
+                {properties?.['Scope/Goal']}
               </Section>
             </Grid.Panel>
 
@@ -91,7 +84,7 @@ export default function Dialog({ open, setOpen }) {
                 headingSize="1em"
                 background="white"
               >
-                £240m
+                {properties?.['Funding']}
               </Section>
             </Grid.Panel>
           </Grid>

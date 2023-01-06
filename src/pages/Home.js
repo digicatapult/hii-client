@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, useRef, useEffect } from 'react'
 import styled from 'styled-components'
 import {
   Grid,
@@ -76,6 +76,7 @@ export default function Home() {
   const [search, setSearch] = useState(null)
   const [showDialog, setShowDialog] = useState(false)
   const [selectedFeature, setSelectedFeature] = useState(null)
+  const listWrapperRef = useRef(null)
 
   const filteredGeoJson = useMemo(() => {
     if (search === null) {
@@ -92,6 +93,16 @@ export default function Home() {
       ),
     }
   }, [search])
+
+  useEffect(() => {
+    if (selectedFeature) {
+      listWrapperRef.current.children
+        .namedItem(selectedFeature.properties['Name'])
+        .scrollIntoView({
+          behavior: 'smooth',
+        })
+    }
+  }, [selectedFeature])
 
   return (
     <FullScreenGrid
@@ -138,21 +149,30 @@ export default function Home() {
         <Drawer title="FILTERS" color="white" background="#27847A"></Drawer>
       </Grid.Panel>
       <Grid.Panel area="projects">
-        <ListWrapper>
-          {filteredGeoJson.features.map((i, index) => (
-            <ListCard
-              key={index} //TODO assign ID?
-              title={`${i.properties['Name']}`}
-              subtitle={`${i.properties['Name of Lead Partner']}`}
-              orientation="left"
-              background="#DCE5E7"
-              height="5em"
-              width="100%"
-              flashColor={GetProjectTypeColour(i.properties['Project Type'])}
-              onClick={(title) => {
-                console.log(title)
-              }}
-            />
+        <ListWrapper ref={listWrapperRef}>
+          {filteredGeoJson.features.map((feature, index) => (
+            <div key={index} id={feature.properties['Name']}>
+              <ListCard
+                title={`${feature.properties['Name']}`}
+                subtitle={`${feature.properties['Name of Lead Partner']}`}
+                orientation="left"
+                background={
+                  feature.properties['Name'] ===
+                  selectedFeature?.properties['Name']
+                    ? '#DFE66730'
+                    : '#DCE5E730'
+                }
+                height="5em"
+                width="100%"
+                flashColor={GetProjectTypeColour(
+                  feature.properties['Project Type']
+                )}
+                onClick={() => {
+                  setSelectedFeature(feature)
+                  setShowDialog(true)
+                }}
+              />
+            </div>
           ))}
         </ListWrapper>
       </Grid.Panel>
@@ -180,7 +200,11 @@ export default function Home() {
             },
           }}
         />
-        <Dialog open={showDialog} setOpen={setShowDialog} />
+        <Dialog
+          open={showDialog}
+          setOpen={setShowDialog}
+          feature={selectedFeature}
+        />
       </Grid.Panel>
     </FullScreenGrid>
   )
