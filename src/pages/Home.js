@@ -71,6 +71,16 @@ const pointColourExpression = [
   '#27847A',
 ]
 
+const pointRadiusExpression = [
+  'interpolate',
+  ['linear'],
+  ['zoom'],
+  1,
+  4,
+  10,
+  10,
+]
+
 export default function Home() {
   const [search, setSearch] = useState(null)
 
@@ -169,7 +179,9 @@ export default function Home() {
           }}
           pointOptions={{
             pointExpression: pointColourExpression,
-            pointRadius: 5,
+            pointRadiusExpression: pointRadiusExpression,
+            pointStrokeColor: '#8a8988',
+            pointStrokeWidth: 1,
             onPointClick: () => {},
           }}
         />
