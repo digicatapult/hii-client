@@ -156,8 +156,7 @@ export default function Home() {
           ))}
         </ListWrapper>
       </Grid.Panel>
-
-      <Grid.Panel area="main">
+      <Grid.Panel area="main" style={{ position: 'relative' }}>
         <Map
           token={process.env.MAPBOX_TOKEN}
           sourceJson={filteredGeoJson}
@@ -181,13 +180,8 @@ export default function Home() {
             },
           }}
         />
+        <Dialog open={showDialog} setOpen={setShowDialog} />
       </Grid.Panel>
-
-      {showDialog && (
-        <Grid.Panel area="main">
-          <Dialog feature={selectedFeature} />
-        </Grid.Panel>
-      )}
     </FullScreenGrid>
   )
 }

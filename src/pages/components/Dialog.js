@@ -1,21 +1,40 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import {
   Grid,
   Section,
   Dialog as DialogComponent,
+  Link,
 } from '@digicatapult/ui-component-library'
 
-export default function Dialog({ feature }) {
-  console.log(feature)
+const Wrapper = styled.div`
+  position: absolute;
+  top: 5ch;
+  left: 5ch;
+`
+
+export default function Dialog({ open, setOpen }) {
+  const dialogRef = useRef(null)
+  useEffect(() => {
+    const dialog = dialogRef.current
+    if (open) {
+      dialog.show()
+    } else {
+      dialog.close()
+    }
+
+    const listener = () => {
+      setOpen(false)
+    }
+    dialog?.addEventListener('close', listener)
+
+    return () => dialog?.removeEventListener('close', listener)
+  }, [open, setOpen])
+
+  //   console.log(feature)
   return (
-    <div
-      style={{
-        height: '600px',
-        background: '#e0e0f0',
-      }}
-    >
-      <DialogComponent includeClose={true}>
+    <Wrapper>
+      <DialogComponent ref={dialogRef} includeClose={true}>
         <Section
           headingLevel={2}
           title="Name"
@@ -38,7 +57,12 @@ export default function Dialog({ feature }) {
               <span>Name of Lead Partner</span>
             </Grid.Panel>
 
-            <Grid.Panel area="link" justifySelf="right"></Grid.Panel>
+            <Grid.Panel area="link" justifySelf="right">
+              <Link
+                text="Link to project"
+                href="https://gtr.ukri.org/projects?ref=EP%2FG06279X%2F1"
+              />
+            </Grid.Panel>
 
             <Grid.Panel area="details">
               <Section
@@ -73,6 +97,6 @@ export default function Dialog({ feature }) {
           </Grid>
         </Section>
       </DialogComponent>
-    </div>
+    </Wrapper>
   )
 }
