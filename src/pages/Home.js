@@ -94,6 +94,7 @@ export default function Home() {
     }
   }, [search])
 
+  // scroll to selected feature
   useEffect(() => {
     if (selectedFeature) {
       listWrapperRef.current.children
@@ -103,6 +104,11 @@ export default function Home() {
         })
     }
   }, [selectedFeature])
+
+  // clear selected feature on dialog close
+  useEffect(() => {
+    if (!showDialog) setSelectedFeature(null)
+  }, [showDialog])
 
   return (
     <FullScreenGrid
@@ -141,7 +147,10 @@ export default function Home() {
             placeholder="Search"
             color="#216968"
             background="white"
-            onSubmit={(s) => setSearch(s === null ? s : s.toLowerCase())}
+            onSubmit={(s) => {
+              setSearch(s === null ? s : s.toLowerCase())
+              setShowDialog(false)
+            }}
           />
         </SearchWrapper>
       </Grid.Panel>
