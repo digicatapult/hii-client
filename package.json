@@ -68,7 +68,7 @@
     "webpack-dev-server": "^4.9.3"
   },
   "dependencies": {
-    "@digicatapult/ui-component-library": "^0.5.4",
+    "@digicatapult/ui-component-library": "^0.5.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.5.0",
