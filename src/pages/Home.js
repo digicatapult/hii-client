@@ -16,7 +16,7 @@ import geojson from '../assets/hii.json'
 
 const HomeBar = styled.picture`
   height: 100%;
-  margin-left: 20px; 
+  margin-left: 20px;
 ` // margin-left
 
 const ListWrapper = styled.div`
@@ -80,14 +80,26 @@ const pointColourExpression = [
   '#27847A',
 ]
 
-String.prototype.format = function() {
+String.prototype.format = function () {
   return this.toLowerCase().replace(/\s/g, '_')
 }
 
 export default function Home() {
   const [search, setSearch] = useState(null)
   const [filter, setFilter] = useState(null)
-  const [options, setOptions] = useState({ projects: [], hydrogens: [] })
+  const options = {
+    projects: geojson.features
+      .map(({ properties }) => ({
+        value: properties['Project Type'].format(),
+        label: properties['Project Type'],
+        color: GetProjectTypeColour(properties['Project Type']),
+        textColor: 'white', // expand mapping, maybe it's ok?
+      }))
+      .filter(
+        ({ value }, i, a) => a.map(({ value }) => value).indexOf(value) == i
+      ),
+    hydrogens: [],
+  }
 
   const filteredGeoJson = useMemo(() => {
     if (search === null && filter === null) return geojson
@@ -101,10 +113,11 @@ export default function Home() {
       return filter.projects.includes(project)
     })
 
-    if (!search) return {
-      ...rest,
-      features: filteredFeatures
-    }
+    if (!search)
+      return {
+        ...rest,
+        features: filteredFeatures,
+      }
 
     return {
       ...rest,
@@ -116,33 +129,16 @@ export default function Home() {
     }
   }, [search, filter])
 
-  React.useEffect(() => {
-    // TODO refactor the below maybe along with seach? but first lets' get this working
-    // setOptions(geojson.features.reduce((out, next) => {}, { projects: [], hydrogens: [] }))
-    setOptions({
-      projects: geojson.features.map(({ properties }) => ({
-        value: properties['Project Type'].format(),
-        label: properties['Project Type'],
-        color: GetProjectTypeColour(properties['Project Type']),
-        textColor: 'white' // expand mapping, maybe it's ok?
-      })).filter(({ value }, i, a) => a.map(({ value }) => value).indexOf(value) == i),
-      /*hydrogens: geojson.features.map(({ properties }) => ({
-        value: properties['Type of Hydrogen'].format(),
-        label: properties['Type of Hydrogen'],
-      })).filter(({ value }, i, a) => a.map(({ value }) => value).indexOf(value) == i), */
-    })
-  }, [])
-
   return (
     <FullScreenGrid
-    areas={[
-      ['home', 'header'],
-      ['search', 'main'],
-      ['filters', 'main'],
-      ['projects', 'main'],
-    ]}
-    columns={['minmax(min-content, 1fr)', '3fr']}
-    rows={['80px', 'min-content', 'min-content', 'minmax(0, 1fr)']}
+      areas={[
+        ['home', 'header'],
+        ['search', 'main'],
+        ['filters', 'main'],
+        ['projects', 'main'],
+      ]}
+      columns={['minmax(min-content, 1fr)', '3fr']}
+      rows={['80px', 'min-content', 'min-content', 'minmax(0, 1fr)']}
     >
       <Grid.Panel area="home">
         <HomeBar>
@@ -177,10 +173,18 @@ export default function Home() {
       <Grid.Panel area="filters">
         <Drawer title="FILTERS" color="white" background="#27847A">
           <FilterWrapper>
-
-            <DropDown isMulti label={'TYPE OF PROJECT'} options={options.projects} variant={'hii'} update={(res) => {
-              setFilter({ ...filter, projects: res.map(({ value }) => value) })
-            }}/>
+            <DropDown
+              isMulti
+              label={'TYPE OF PROJECT'}
+              options={options.projects}
+              variant={'hii'}
+              update={(res) => {
+                setFilter({
+                  ...filter,
+                  projects: res.map(({ value }) => value),
+                })
+              }}
+            />
             {/*<DropDown isMulti label={'TYPE OF HYDROGEN'} options={options.hydrogens} variant={'hii'} update={(res) => {
               setFilter({ ...filter, hydrogens: res.map(({ value }) => value) })
             }}/>*/}
@@ -207,7 +211,9 @@ export default function Home() {
 
       <Grid.Panel area="main">
         <Map
-          token={'pk.eyJ1Ijoiam9uYXRoYW5ncmF5IiwiYSI6ImNsY2l3eTE5cDBvdzgzb3F1Zmc1Z2J3azQifQ.xoWjn92BY5cTTn6mhqXHtg'}
+          token={
+            'pk.eyJ1Ijoiam9uYXRoYW5ncmF5IiwiYSI6ImNsY2l3eTE5cDBvdzgzb3F1Zmc1Z2J3azQifQ.xoWjn92BY5cTTn6mhqXHtg'
+          }
           sourceJson={filteredGeoJson}
           initialState={{
             height: '100%',
