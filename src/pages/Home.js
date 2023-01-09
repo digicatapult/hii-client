@@ -203,14 +203,13 @@ export default function Home() {
           }}
           pointOptions={{
             pointExpression: pointColourExpression,
-            pointRadius: 5,
+            pointRadiusExpression: pointRadiusExpression,
+            pointStrokeColor: '#8a8988',
+            pointStrokeWidth: 1,
             onPointClick: (feature) => {
               setSelectedFeature(feature)
               setShowDialog(true)
             },
-            pointRadiusExpression: pointRadiusExpression,
-            pointStrokeColor: '#8a8988',
-            pointStrokeWidth: 1,
           }}
         />
         <Dialog
