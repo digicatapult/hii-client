@@ -33,7 +33,6 @@ export default function Dialog({ open, setOpen, feature }) {
     return () => dialog?.removeEventListener('close', listener)
   }, [open, setOpen])
 
-  console.log(feature)
   return (
     <Wrapper>
       <DialogComponent ref={dialogRef} includeClose={true}>

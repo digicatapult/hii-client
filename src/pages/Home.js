@@ -1,5 +1,6 @@
 import React, { useMemo, useState, useRef, useEffect } from 'react'
 import styled from 'styled-components'
+import { v4 as uuid } from 'uuid'
 import {
   Grid,
   Map,
@@ -13,6 +14,10 @@ import Dialog from './components/Dialog'
 import LogoPNG from '../assets/images/hii-logo.png'
 import LogoWebP from '../assets/images/hii-logo.webp'
 import geojson from '../assets/hii.json'
+// give each feature an id
+geojson.features = geojson.features.map((f) => {
+  return { ...f, properties: { ...f.properties, id: uuid() } }
+})
 
 const HomeBar = styled.picture`
   height: 100%;
@@ -98,8 +103,8 @@ export default function Home() {
   useEffect(() => {
     if (selectedFeature) {
       listWrapperRef.current.children
-        .namedItem(selectedFeature.properties['Name'])
-        .scrollIntoView({
+        .namedItem(selectedFeature.id)
+        ?.scrollIntoView({
           behavior: 'smooth',
         })
     }
@@ -160,28 +165,26 @@ export default function Home() {
       <Grid.Panel area="projects">
         <ListWrapper ref={listWrapperRef}>
           {filteredGeoJson.features.map((feature, index) => (
-            <div key={index} id={feature.properties['Name']}>
-              <ListCard
-                title={`${feature.properties['Name']}`}
-                subtitle={`${feature.properties['Name of Lead Partner']}`}
-                orientation="left"
-                background={
-                  feature.properties['Name'] ===
-                  selectedFeature?.properties['Name']
-                    ? '#DFE66730'
-                    : '#DCE5E730'
-                }
-                height="5em"
-                width="100%"
-                flashColor={GetProjectTypeColour(
-                  feature.properties['Project Type']
-                )}
-                onClick={() => {
-                  setSelectedFeature(feature)
-                  setShowDialog(true)
-                }}
-              />
-            </div>
+            <ListCard
+              key={index}
+              title={`${feature.properties['Name']}`}
+              subtitle={`${feature.properties['Name of Lead Partner']}`}
+              orientation="left"
+              background={
+                feature.properties.id === selectedFeature?.properties.id
+                  ? '#DFE66730'
+                  : '#DCE5E730'
+              }
+              height="5em"
+              width="100%"
+              flashColor={GetProjectTypeColour(
+                feature.properties['Project Type']
+              )}
+              onClick={() => {
+                setSelectedFeature(feature)
+                setShowDialog(true)
+              }}
+            />
           ))}
         </ListWrapper>
       </Grid.Panel>
