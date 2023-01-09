@@ -7,6 +7,7 @@ import {
   Search,
   Drawer,
   ListCard,
+  DropDown,
 } from '@digicatapult/ui-component-library'
 
 import LogoPNG from '../assets/images/hii-logo.png'
@@ -35,10 +36,18 @@ const SearchWrapper = styled.div`
   background: #216968;
 `
 
+const FilterWrapper = styled.div`
+  display: grid;
+  min-height: 250px;
+  height: 100%;
+  align-content: start;
+  gap: 5px;
+  padding: 25px 15px;
+`
+
 const FullScreenGrid = styled(Grid)`
   height: 100vh;
   width: 100vw;
-  overflow: hidden; //TODO fix map overflow
 `
 
 const GetProjectTypeColour = (project) => {
@@ -71,6 +80,10 @@ const pointColourExpression = [
   '#27847A',
 ]
 
+String.prototype.format = function () {
+  return this.toLowerCase().replace(/\s/g, '_')
+}
+
 const pointRadiusExpression = [
   'interpolate',
   ['linear'],
@@ -83,22 +96,48 @@ const pointRadiusExpression = [
 
 export default function Home() {
   const [search, setSearch] = useState(null)
+  const [filter, setFilter] = useState(null)
+  const options = {
+    projects: geojson.features
+      .map(({ properties }) => ({
+        value: properties['Project Type'].format(),
+        label: properties['Project Type'],
+        color: GetProjectTypeColour(properties['Project Type']),
+        textColor: 'white', // expand mapping, maybe it's ok?
+      }))
+      .filter(
+        ({ value }, i, a) => a.map(({ value }) => value).indexOf(value) == i
+      ),
+    hydrogens: [],
+  }
 
   const filteredGeoJson = useMemo(() => {
-    if (search === null) {
-      return geojson
-    }
-
+    if (search === null && filter === null) return geojson
     const { features, ...rest } = geojson
+
+    const filteredFeatures = features.filter(({ properties }) => {
+      if (!filter.projects.length > 0) return true
+      const project = properties['Project Type'].format()
+      // const hydrogen = feature.properties['Type of Hydrogen'].toLowerCase().replace(/\s/g, '_')
+
+      return filter.projects.includes(project)
+    })
+
+    if (!search)
+      return {
+        ...rest,
+        features: filteredFeatures,
+      }
+
     return {
       ...rest,
-      features: features.filter(({ properties }) =>
+      features: filteredFeatures.filter(({ properties }) =>
         Object.values(properties).some(
           (val) => `${val}`.toLowerCase().indexOf(search) !== -1
         )
       ),
     }
-  }, [search])
+  }, [search, filter])
 
   return (
     <FullScreenGrid
@@ -142,7 +181,26 @@ export default function Home() {
         </SearchWrapper>
       </Grid.Panel>
       <Grid.Panel area="filters">
-        <Drawer title="FILTERS" color="white" background="#27847A"></Drawer>
+        <Drawer title="FILTERS" color="white" background="#27847A">
+          <FilterWrapper>
+            <DropDown
+              isMulti
+              placeholder="Select range of maturity"
+              label="TYPE OF PROJECT"
+              options={options.projects}
+              variant="hii"
+              update={(res) => {
+                setFilter({
+                  ...filter,
+                  projects: res.map(({ value }) => value),
+                })
+              }}
+            />
+            {/*<DropDown isMulti label={'TYPE OF HYDROGEN'} options={options.hydrogens} variant={'hii'} update={(res) => {
+              setFilter({ ...filter, hydrogens: res.map(({ value }) => value) })
+            }}/>*/}
+          </FilterWrapper>
+        </Drawer>
       </Grid.Panel>
       <Grid.Panel area="projects">
         <ListWrapper>
