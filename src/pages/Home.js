@@ -1,5 +1,6 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, useEffect, useRef } from 'react'
 import styled from 'styled-components'
+import { v4 as uuid } from 'uuid'
 import {
   Grid,
   Map,
@@ -9,9 +10,14 @@ import {
   ListCard,
 } from '@digicatapult/ui-component-library'
 
+import Dialog from './components/Dialog'
 import LogoPNG from '../assets/images/hii-logo.png'
 import LogoWebP from '../assets/images/hii-logo.webp'
 import geojson from '../assets/hii.json'
+// give each feature an id
+geojson.features = geojson.features.map((f) => {
+  return { ...f, properties: { ...f.properties, id: uuid() } }
+})
 
 const HomeBar = styled.picture`
   height: 100%;
@@ -83,6 +89,17 @@ const pointRadiusExpression = [
 
 export default function Home() {
   const [search, setSearch] = useState(null)
+  const [showDialog, setShowDialog] = useState(false)
+  const [selectedFeature, setSelectedFeature] = useState(null)
+  const listWrapperRef = useRef({})
+
+  useEffect(() => {
+    if (selectedFeature) {
+      listWrapperRef.current[selectedFeature.properties.id].scrollIntoView({
+        behavior: 'smooth',
+      })
+    }
+  }, [selectedFeature])
 
   const filteredGeoJson = useMemo(() => {
     if (search === null) {
@@ -99,6 +116,11 @@ export default function Home() {
       ),
     }
   }, [search])
+
+  // clear selected feature on dialog close
+  useEffect(() => {
+    if (!showDialog) setSelectedFeature(null)
+  }, [showDialog])
 
   return (
     <FullScreenGrid
@@ -137,7 +159,10 @@ export default function Home() {
             placeholder="Search"
             color="#216968"
             background="white"
-            onSubmit={(s) => setSearch(s === null ? s : s.toLowerCase())}
+            onSubmit={(s) => {
+              setSearch(s === null ? s : s.toLowerCase())
+              setShowDialog(false)
+            }}
           />
         </SearchWrapper>
       </Grid.Panel>
@@ -146,23 +171,37 @@ export default function Home() {
       </Grid.Panel>
       <Grid.Panel area="projects">
         <ListWrapper>
-          {filteredGeoJson.features.map((i, index) => (
+          {filteredGeoJson.features.map((feature) => (
             <ListCard
-              key={index} //TODO assign ID?
-              title={`${i.properties['Name']}`}
-              subtitle={`${i.properties['Name of Lead Partner']}`}
+              ref={(el) =>
+                (listWrapperRef.current = {
+                  ...listWrapperRef.current,
+                  [feature.properties.id]: el,
+                })
+              }
+              key={feature.properties.id}
+              title={`${feature.properties['Name']}`}
+              subtitle={`${feature.properties['Name of Lead Partner']}`}
               orientation="left"
-              background="#DCE5E7"
+              background={
+                feature.properties.id === selectedFeature?.properties.id
+                  ? '#DFE66730'
+                  : '#DCE5E730'
+              }
               height="5em"
               width="100%"
-              flashColor={GetProjectTypeColour(i.properties['Project Type'])}
-              onClick={() => {}}
+              flashColor={GetProjectTypeColour(
+                feature.properties['Project Type']
+              )}
+              onClick={() => {
+                setSelectedFeature(feature)
+                setShowDialog(true)
+              }}
             />
           ))}
         </ListWrapper>
       </Grid.Panel>
-
-      <Grid.Panel area="main">
+      <Grid.Panel area="main" style={{ position: 'relative' }}>
         <Map
           token={process.env.MAPBOX_TOKEN}
           sourceJson={filteredGeoJson}
@@ -182,8 +221,16 @@ export default function Home() {
             pointRadiusExpression: pointRadiusExpression,
             pointStrokeColor: '#8a8988',
             pointStrokeWidth: 1,
-            onPointClick: () => {},
+            onPointClick: (feature) => {
+              setSelectedFeature(feature)
+              setShowDialog(true)
+            },
           }}
+        />
+        <Dialog
+          open={showDialog}
+          setOpen={setShowDialog}
+          feature={selectedFeature}
         />
       </Grid.Panel>
     </FullScreenGrid>
