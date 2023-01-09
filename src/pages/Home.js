@@ -211,9 +211,7 @@ export default function Home() {
 
       <Grid.Panel area="main">
         <Map
-          token={
-            'pk.eyJ1Ijoiam9uYXRoYW5ncmF5IiwiYSI6ImNsY2l3eTE5cDBvdzgzb3F1Zmc1Z2J3azQifQ.xoWjn92BY5cTTn6mhqXHtg'
-          }
+          token={process.env.MAPBOX_TOKEN}
           sourceJson={filteredGeoJson}
           initialState={{
             height: '100%',
