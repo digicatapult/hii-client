@@ -17,7 +17,7 @@ import geojson from '../assets/hii.json'
 const HomeBar = styled.picture`
   height: 100%;
   margin-left: 20px;
-` // margin-left
+`
 
 const ListWrapper = styled.div`
   display: grid;
