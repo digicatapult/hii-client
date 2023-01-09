@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useRef, useEffect } from 'react'
+import React, { useMemo, useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { v4 as uuid } from 'uuid'
 import {
@@ -91,7 +91,6 @@ export default function Home() {
   const [search, setSearch] = useState(null)
   const [showDialog, setShowDialog] = useState(false)
   const [selectedFeature, setSelectedFeature] = useState(null)
-  const listWrapperRef = useRef(null)
 
   const filteredGeoJson = useMemo(() => {
     if (search === null) {
@@ -108,17 +107,6 @@ export default function Home() {
       ),
     }
   }, [search])
-
-  // scroll to selected feature
-  useEffect(() => {
-    if (selectedFeature) {
-      listWrapperRef.current.children
-        .namedItem(selectedFeature.id)
-        ?.scrollIntoView({
-          behavior: 'smooth',
-        })
-    }
-  }, [selectedFeature])
 
   // clear selected feature on dialog close
   useEffect(() => {
@@ -173,7 +161,7 @@ export default function Home() {
         <Drawer title="FILTERS" color="white" background="#27847A"></Drawer>
       </Grid.Panel>
       <Grid.Panel area="projects">
-        <ListWrapper ref={listWrapperRef}>
+        <ListWrapper>
           {filteredGeoJson.features.map((feature, index) => (
             <ListCard
               key={index}
