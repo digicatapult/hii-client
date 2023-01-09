@@ -80,7 +80,6 @@ const pointColourExpression = [
   '#27847A',
 ]
 
-
 String.prototype.format = function () {
   return this.toLowerCase().replace(/\s/g, '_')
 }
