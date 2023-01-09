@@ -175,9 +175,10 @@ export default function Home() {
           <FilterWrapper>
             <DropDown
               isMulti
-              label={'TYPE OF PROJECT'}
+              placeholder='Select range of maturity'
+              label='TYPE OF PROJECT'
               options={options.projects}
-              variant={'hii'}
+              variant='hii'
               update={(res) => {
                 setFilter({
                   ...filter,
