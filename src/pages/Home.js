@@ -33,19 +33,16 @@ const SearchWrapper = styled.div`
   display: flex;
   justify-content: center;
   font-size: 1rem;
-  height: 75px;
   background: #216968;
 `
 
-const HowManyTakesWrappers = styled.div`
-display: grid;
-height: 100%;
-align-content: end;
-gap: 5px;
-font-size: 1em;
-overflow: scroll;
-padding: 25px 15px;
-  
+const FilterWrapper = styled.div`
+  display: grid;
+  min-height: 250px;
+  height: 100%;
+  align-content: start;
+  gap: 5px;
+  padding: 25px 15px;
 `
 
 const FullScreenGrid = styled(Grid)`
@@ -95,8 +92,7 @@ export default function Home() {
   const filteredGeoJson = useMemo(() => {
     if (search === null && filter === null) return geojson
     const { features, ...rest } = geojson
-    // TODO a nicer way? 
-    /*
+
     const filteredFeatures = features.filter(({ properties }) => {
       if (!filter.projects.length > 0) return true
       const project = properties['Project Type'].format()
@@ -109,11 +105,10 @@ export default function Home() {
       ...rest,
       features: filteredFeatures
     }
-    */
 
     return {
       ...rest,
-      features: features.filter(({ properties }) =>
+      features: filteredFeatures.filter(({ properties }) =>
         Object.values(properties).some(
           (val) => `${val}`.toLowerCase().indexOf(search) !== -1
         )
@@ -131,23 +126,23 @@ export default function Home() {
         color: GetProjectTypeColour(properties['Project Type']),
         textColor: 'white' // expand mapping, maybe it's ok?
       })).filter(({ value }, i, a) => a.map(({ value }) => value).indexOf(value) == i),
-      hydrogens: geojson.features.map(({ properties }) => ({
+      /*hydrogens: geojson.features.map(({ properties }) => ({
         value: properties['Type of Hydrogen'].format(),
         label: properties['Type of Hydrogen'],
-      })).filter(({ value }, i, a) => a.map(({ value }) => value).indexOf(value) == i),
+      })).filter(({ value }, i, a) => a.map(({ value }) => value).indexOf(value) == i), */
     })
   }, [])
 
   return (
     <FullScreenGrid
-      areas={[
-        ['home', 'header'],
-        ['search', 'main'],
-        ['filters', 'main'],
-        ['projects', 'main'],
-      ]}
-      columns={['minmax(min-content, 1fr)', '3fr']}
-      rows={['80px', 'min-content', 'min-content', 'minmax(1fr, 1fr)']}
+    areas={[
+      ['home', 'header'],
+      ['search', 'main'],
+      ['filters', 'main'],
+      ['projects', 'main'],
+    ]}
+    columns={['minmax(min-content, 1fr)', '3fr']}
+    rows={['80px', 'min-content', 'min-content', 'minmax(0, 1fr)']}
     >
       <Grid.Panel area="home">
         <HomeBar>
@@ -181,6 +176,15 @@ export default function Home() {
       </Grid.Panel>
       <Grid.Panel area="filters">
         <Drawer title="FILTERS" color="white" background="#27847A">
+          <FilterWrapper>
+
+            <DropDown isMulti label={'TYPE OF PROJECT'} options={options.projects} variant={'hii'} update={(res) => {
+              setFilter({ ...filter, projects: res.map(({ value }) => value) })
+            }}/>
+            {/*<DropDown isMulti label={'TYPE OF HYDROGEN'} options={options.hydrogens} variant={'hii'} update={(res) => {
+              setFilter({ ...filter, hydrogens: res.map(({ value }) => value) })
+            }}/>*/}
+          </FilterWrapper>
         </Drawer>
       </Grid.Panel>
       <Grid.Panel area="projects">
