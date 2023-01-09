@@ -13,6 +13,8 @@ import {
 import { MAPBOX_TOKEN, MAPBOX_STYLE } from '../utils/env'
 import { GetProjectTypeColour } from '../utils/theme'
 import Dialog from './components/Dialog'
+import { filterGeoJson, searchFields } from '../utils/search'
+
 import LogoPNG from '../assets/images/hii-logo.png'
 import LogoWebP from '../assets/images/hii-logo.webp'
 import geojson from '../assets/hii.json'
@@ -77,8 +79,12 @@ const pointRadiusExpression = [
   10,
 ]
 
+const searchFieldsConfig = Object.fromEntries(
+  searchFields.map(({ searchField }) => [searchField, { fieldType: 'text' }])
+)
+
 export default function Home() {
-  const [search, setSearch] = useState(null)
+  const [search, setSearch] = useState([])
   const [showDialog, setShowDialog] = useState(false)
   const [selectedFeature, setSelectedFeature] = useState(null)
   const listWrapperRef = useRef({})
@@ -91,21 +97,10 @@ export default function Home() {
     }
   }, [selectedFeature])
 
-  const filteredGeoJson = useMemo(() => {
-    if (search === null) {
-      return geojson
-    }
-
-    const { features, ...rest } = geojson
-    return {
-      ...rest,
-      features: features.filter(({ properties }) =>
-        Object.values(properties).some(
-          (val) => `${val}`.toLowerCase().indexOf(search) !== -1
-        )
-      ),
-    }
-  }, [search])
+  const filteredGeoJson = useMemo(
+    () => filterGeoJson(geojson, search),
+    [search]
+  )
 
   // clear selected feature on dialog close
   useEffect(() => {
@@ -146,11 +141,12 @@ export default function Home() {
       <Grid.Panel area="search">
         <SearchWrapper>
           <Search
+            fields={searchFieldsConfig}
             placeholder="Search"
             color="#216968"
             background="white"
             onSubmit={(s) => {
-              setSearch(s === null ? s : s.toLowerCase())
+              setSearch(s)
               setShowDialog(false)
             }}
           />
