@@ -35,12 +35,11 @@ export default function Dialog({ open, setOpen, feature }) {
 
   return (
     <Wrapper>
-      <DialogComponent ref={dialogRef} includeClose={true}>
+      <DialogComponent width="60ch" ref={dialogRef} includeClose={true}>
         <Section
           headingLevel={2}
           title={properties?.['Name']}
           padding="1em 1.5em"
-          width="60ch"
           headingSize="2em"
           background="white"
         >
