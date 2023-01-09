@@ -162,9 +162,9 @@ export default function Home() {
       </Grid.Panel>
       <Grid.Panel area="projects">
         <ListWrapper>
-          {filteredGeoJson.features.map((feature, index) => (
+          {filteredGeoJson.features.map((feature) => (
             <ListCard
-              key={index}
+              key={feature.properties.id}
               title={`${feature.properties['Name']}`}
               subtitle={`${feature.properties['Name of Lead Partner']}`}
               orientation="left"
