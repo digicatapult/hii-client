@@ -7,6 +7,7 @@ import {
   Search,
   Drawer,
   ListCard,
+  DropDown,
 } from '@digicatapult/ui-component-library'
 
 import LogoPNG from '../assets/images/hii-logo.png'
@@ -15,8 +16,8 @@ import geojson from '../assets/hii.json'
 
 const HomeBar = styled.picture`
   height: 100%;
-  margin-left: 20px;
-`
+  margin-left: 20px; 
+` // margin-left
 
 const ListWrapper = styled.div`
   display: grid;
@@ -32,13 +33,24 @@ const SearchWrapper = styled.div`
   display: flex;
   justify-content: center;
   font-size: 1rem;
+  height: 75px;
   background: #216968;
+`
+
+const HowManyTakesWrappers = styled.div`
+display: grid;
+height: 100%;
+align-content: end;
+gap: 5px;
+font-size: 1em;
+overflow: scroll;
+padding: 25px 15px;
+  
 `
 
 const FullScreenGrid = styled(Grid)`
   height: 100vh;
   width: 100vw;
-  overflow: hidden; //TODO fix map overflow
 `
 
 const GetProjectTypeColour = (project) => {
@@ -71,15 +83,34 @@ const pointColourExpression = [
   '#27847A',
 ]
 
+String.prototype.format = function() {
+  return this.toLowerCase().replace(/\s/g, '_')
+}
+
 export default function Home() {
   const [search, setSearch] = useState(null)
+  const [filter, setFilter] = useState(null)
+  const [options, setOptions] = useState({ projects: [], hydrogens: [] })
 
   const filteredGeoJson = useMemo(() => {
-    if (search === null) {
-      return geojson
-    }
-
+    if (search === null && filter === null) return geojson
     const { features, ...rest } = geojson
+    // TODO a nicer way? 
+    /*
+    const filteredFeatures = features.filter(({ properties }) => {
+      if (!filter.projects.length > 0) return true
+      const project = properties['Project Type'].format()
+      // const hydrogen = feature.properties['Type of Hydrogen'].toLowerCase().replace(/\s/g, '_')
+
+      return filter.projects.includes(project)
+    })
+
+    if (!search) return {
+      ...rest,
+      features: filteredFeatures
+    }
+    */
+
     return {
       ...rest,
       features: features.filter(({ properties }) =>
@@ -88,7 +119,24 @@ export default function Home() {
         )
       ),
     }
-  }, [search])
+  }, [search, filter])
+
+  React.useEffect(() => {
+    // TODO refactor the below maybe along with seach? but first lets' get this working
+    // setOptions(geojson.features.reduce((out, next) => {}, { projects: [], hydrogens: [] }))
+    setOptions({
+      projects: geojson.features.map(({ properties }) => ({
+        value: properties['Project Type'].format(),
+        label: properties['Project Type'],
+        color: GetProjectTypeColour(properties['Project Type']),
+        textColor: 'white' // expand mapping, maybe it's ok?
+      })).filter(({ value }, i, a) => a.map(({ value }) => value).indexOf(value) == i),
+      hydrogens: geojson.features.map(({ properties }) => ({
+        value: properties['Type of Hydrogen'].format(),
+        label: properties['Type of Hydrogen'],
+      })).filter(({ value }, i, a) => a.map(({ value }) => value).indexOf(value) == i),
+    })
+  }, [])
 
   return (
     <FullScreenGrid
@@ -99,7 +147,7 @@ export default function Home() {
         ['projects', 'main'],
       ]}
       columns={['minmax(min-content, 1fr)', '3fr']}
-      rows={['80px', 'min-content', 'min-content', 'minmax(0, 1fr)']}
+      rows={['80px', 'min-content', 'min-content', 'minmax(1fr, 1fr)']}
     >
       <Grid.Panel area="home">
         <HomeBar>
@@ -132,7 +180,8 @@ export default function Home() {
         </SearchWrapper>
       </Grid.Panel>
       <Grid.Panel area="filters">
-        <Drawer title="FILTERS" color="white" background="#27847A"></Drawer>
+        <Drawer title="FILTERS" color="white" background="#27847A">
+        </Drawer>
       </Grid.Panel>
       <Grid.Panel area="projects">
         <ListWrapper>
@@ -154,7 +203,7 @@ export default function Home() {
 
       <Grid.Panel area="main">
         <Map
-          token={process.env.MAPBOX_TOKEN}
+          token={'pk.eyJ1Ijoiam9uYXRoYW5ncmF5IiwiYSI6ImNsY2l3eTE5cDBvdzgzb3F1Zmc1Z2J3azQifQ.xoWjn92BY5cTTn6mhqXHtg'}
           sourceJson={filteredGeoJson}
           initialState={{
             height: '100%',
