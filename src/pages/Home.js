@@ -77,6 +77,16 @@ const pointColourExpression = [
   '#27847A',
 ]
 
+const pointRadiusExpression = [
+  'interpolate',
+  ['linear'],
+  ['zoom'],
+  1,
+  4,
+  10,
+  10,
+]
+
 export default function Home() {
   const [search, setSearch] = useState(null)
   const [showDialog, setShowDialog] = useState(false)
@@ -210,6 +220,9 @@ export default function Home() {
               setSelectedFeature(feature)
               setShowDialog(true)
             },
+            pointRadiusExpression: pointRadiusExpression,
+            pointStrokeColor: '#8a8988',
+            pointStrokeWidth: 1,
           }}
         />
         <Dialog
