@@ -7,7 +7,7 @@ import {
   Link,
 } from '@digicatapult/ui-component-library'
 
-import { GetProjectTypeColour } from '../../utils/color'
+import { GetProjectTypeColour } from '../../utils/theme'
 
 const Wrapper = styled.div`
   position: absolute;

@@ -11,7 +11,7 @@ import {
 } from '@digicatapult/ui-component-library'
 
 import { MAPBOX_TOKEN, MAPBOX_STYLE } from '../utils/env'
-import { GetProjectTypeColour } from '../utils/color'
+import { GetProjectTypeColour } from '../utils/theme'
 import Dialog from './components/Dialog'
 import LogoPNG from '../assets/images/hii-logo.png'
 import LogoWebP from '../assets/images/hii-logo.webp'
@@ -184,8 +184,7 @@ export default function Home() {
               height="5em"
               width="100%"
               flashColor={GetProjectTypeColour(
-                feature.properties['Project Type'],
-                'FF'
+                feature.properties['Project Type']
               )}
               onClick={() => {
                 setSelectedFeature(feature)
