@@ -7,6 +7,8 @@ import {
   Link,
 } from '@digicatapult/ui-component-library'
 
+import { GetProjectTypeColour } from '../../utils/color'
+
 const Wrapper = styled.div`
   position: absolute;
   top: 5ch;
@@ -35,7 +37,12 @@ export default function Dialog({ open, setOpen, feature }) {
 
   return (
     <Wrapper>
-      <DialogComponent width="60ch" ref={dialogRef} includeClose={true}>
+      <DialogComponent
+        width="60ch"
+        maxHeight="80ch"
+        ref={dialogRef}
+        includeClose={true}
+      >
         <Section
           headingLevel={2}
           title={properties?.['Name']}
@@ -67,7 +74,10 @@ export default function Dialog({ open, setOpen, feature }) {
                 title="Project details"
                 padding="1em 1.5em"
                 margin="0 -1.5em"
-                background="#dfe667"
+                background={GetProjectTypeColour(
+                  properties?.['Project Type'],
+                  '50'
+                )}
                 headingSize="1em"
               >
                 {properties?.['Scope/Goal']}
