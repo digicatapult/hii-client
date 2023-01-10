@@ -48,6 +48,7 @@ const FilterWrapper = styled.div`
 const FullScreenGrid = styled(Grid)`
   height: 100vh;
   width: 100vw;
+  overflow: hidden; //TODO fix map overflow
 `
 
 const GetProjectTypeColour = (project) => {
