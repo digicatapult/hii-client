@@ -11,6 +11,7 @@ import {
 } from '@digicatapult/ui-component-library'
 
 import { MAPBOX_TOKEN, MAPBOX_STYLE } from '../utils/env'
+import { GetProjectTypeColour } from '../utils/theme'
 import Dialog from './components/Dialog'
 import LogoPNG from '../assets/images/hii-logo.png'
 import LogoWebP from '../assets/images/hii-logo.webp'
@@ -47,18 +48,6 @@ const FullScreenGrid = styled(Grid)`
   width: 100vw;
   overflow: hidden; //TODO fix map overflow
 `
-
-const GetProjectTypeColour = (project) => {
-  const colours = {
-    'Feasability Study': '#27847A',
-    'Funding/Competition': '#80CC72',
-    'Testing & certification': '#B6EFA0',
-    'Innovation programme': '#DFE667',
-    'R&D facility': '#C8B88A',
-    'Government strategy': '#F1DDDF',
-  }
-  return colours[project] ?? '#27847A'
-}
 
 const pointColourExpression = [
   'match',
@@ -186,7 +175,10 @@ export default function Home() {
               orientation="left"
               background={
                 feature.properties.id === selectedFeature?.properties.id
-                  ? '#DFE66730'
+                  ? GetProjectTypeColour(
+                      feature.properties['Project Type'],
+                      '30'
+                    )
                   : '#DCE5E730'
               }
               height="5em"
