@@ -216,6 +216,7 @@ export default function Home() {
           clusterOptions={{
             clusterColor: '#216968',
             clusterRadius: 14,
+            clusterMaxZoom: 10,
           }}
           pointOptions={{
             pointExpression: pointColourExpression,
