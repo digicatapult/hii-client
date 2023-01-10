@@ -10,6 +10,7 @@ import {
   ListCard,
 } from '@digicatapult/ui-component-library'
 
+import { MAPBOX_TOKEN, MAPBOX_STYLE } from '../utils/env'
 import Dialog from './components/Dialog'
 import LogoPNG from '../assets/images/hii-logo.png'
 import LogoWebP from '../assets/images/hii-logo.webp'
@@ -203,13 +204,13 @@ export default function Home() {
       </Grid.Panel>
       <Grid.Panel area="main" style={{ position: 'relative' }}>
         <Map
-          token={process.env.MAPBOX_TOKEN}
+          token={MAPBOX_TOKEN}
           sourceJson={filteredGeoJson}
           initialState={{
             height: '100%',
             width: '100%',
             zoom: 5.5,
-            style: process.env.MAPBOX_STYLE,
+            style: MAPBOX_STYLE,
           }}
           cluster={true}
           clusterOptions={{
