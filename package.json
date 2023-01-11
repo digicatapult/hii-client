@@ -1,6 +1,6 @@
 {
   "name": "@digicatapult/hii-client",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "User interface for HII project",
   "homepage": "https://digicatapult.github.io/hii-client/",
   "main": "src/index.js",
@@ -68,7 +68,7 @@
     "webpack-dev-server": "^4.9.3"
   },
   "dependencies": {
-    "@digicatapult/ui-component-library": "^0.5.6",
+    "@digicatapult/ui-component-library": "^0.6.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.5.0",
