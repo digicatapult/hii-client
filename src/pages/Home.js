@@ -87,6 +87,7 @@ export default function Home() {
   const [search, setSearch] = useState([])
   const [showDialog, setShowDialog] = useState(false)
   const [selectedFeature, setSelectedFeature] = useState(null)
+  const [zoomLocation, setZoomLocation] = useState([-3.5, 55])
   const listWrapperRef = useRef({})
 
   useEffect(() => {
@@ -184,6 +185,10 @@ export default function Home() {
               )}
               onClick={() => {
                 setSelectedFeature(feature)
+                setZoomLocation([
+                  feature.geometry.coordinates[0],
+                  feature.geometry.coordinates[1],
+                ])
                 setShowDialog(true)
               }}
             />
@@ -215,6 +220,7 @@ export default function Home() {
               setSelectedFeature(feature)
               setShowDialog(true)
             },
+            zoomLocation: zoomLocation,
           }}
         />
         <Dialog
