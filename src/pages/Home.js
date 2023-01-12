@@ -199,6 +199,7 @@ export default function Home() {
         <Map
           token={MAPBOX_TOKEN}
           sourceJson={filteredGeoJson}
+          zoomLocation={zoomLocation}
           initialState={{
             height: '100%',
             width: '100%',
@@ -220,7 +221,6 @@ export default function Home() {
               setSelectedFeature(feature)
               setShowDialog(true)
             },
-            zoomLocation: zoomLocation,
           }}
         />
         <Dialog
