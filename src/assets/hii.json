@@ -388,7 +388,7 @@
     "Part of larger programme?":"No",
     "Larger Programme Name":"N/A",
     "Project Type":"Testing & certification",
-    "Scope/Goal":"Work on the Holyhead Hydrogen Hub started in 2019 with a feasibility study which explored the opportunites to produce and use hydrogen on Ynys Môn.The upcoming demonstration hydrogen production plant and fuelling hub for HGVs to serve freight traffic at Holyhead and port-side vehicles, which could be operational by 2025.",
+    "Scope/Goal":"Work on the Holyhead Hydrogen Hub started in 2019 with a feasibility study which explored the opportunity to produce and use hydrogen on Ynys Môn.The upcoming demonstration hydrogen production plant and fuelling hub for HGVs to serve freight traffic at Holyhead and port-side vehicles, which could be operational by 2025.",
     "Funding":"£5,500,000.00",
     "Type of Hydrogen":"Electrolysis",
     "Region (?)":"Wales",
@@ -463,7 +463,7 @@
     "Part of larger programme?":"No",
     "Larger Programme Name":"N/A",
     "Project Type":"Innovation programme",
-    "Scope/Goal":"Hydrogen is produced at a refeulling station in St. Helens via electrolysis of water utilising electricity generated from renewable sources. It is then stored as a compressed gas until being dispensed into vehicles, much like refuelling a petrol or diesel vehicle. It will be the largest deployment of Fuel Cell Buses in the UK to date with up to 25 hydrogen–powered buses on the streets of the Liverpool City Region by 2020. Having declared a Climate Emergency earlier this year the project will contribute to the city region’s plans both to improve air quality and work towards a zero carbon economy by 2040.",
+    "Scope/Goal":"Hydrogen is produced at a refueling station in St. Helens via electrolysis of water utilising electricity generated from renewable sources. It is then stored as a compressed gas until being dispensed into vehicles, much like refuelling a petrol or diesel vehicle. It will be the largest deployment of Fuel Cell Buses in the UK to date with up to 25 hydrogen–powered buses on the streets of the Liverpool City Region by 2020. Having declared a Climate Emergency earlier this year the project will contribute to the city region’s plans both to improve air quality and work towards a zero carbon economy by 2040.",
     "Funding":"£30,000,000.00",
     "Type of Hydrogen":"Electrolysis",
     "Region (?)":"North West (England)",
@@ -868,10 +868,10 @@
     "Type of Hydrogen":"Electrolysis",
     "Region (?)":"Scotland",
     "Name of Lead Partner":"Hy2Go ",
-    "Address of Lead Partner":"M74 Eco Park, Carlisle Road, Lesmahagow, ML11 0GU, Scotland",
+    "Address of Lead Partner":"M74 Eco Park, Carlisle Road\nLesmahagow ML11 0GU\nScotland",
     "Physical facility? Yes/No":"Yes",
     "Name of Main Physical Facility":"The Hy2Go park ",
-    "Address of Main Physical Facility":"M74 Eco Park, Carlisle Road, Lesmahagow, ML11 0GU, Scotland",
+    "Address of Main Physical Facility":"M74 Eco Park, Carlisle Road\nLesmahagow ML11 0GU\nScotland",
     "Timeline (Project Maturity)":"",
     "Key Partners":"Ryse Hydrogen"
     }
@@ -1155,7 +1155,7 @@
     "type": "Feature",
     "geometry": {
        "type": "Point",
-       "coordinates":  [ 2.9025,58.9537 ]
+       "coordinates":  [ -2.904658,58.953735 ]
     },
     "properties": {
     "Name":"Kirkwall Airport CHP (Combined Heat and Power) Unit.",
@@ -1198,7 +1198,7 @@
     "Name of Main Physical Facility":"N/A",
     "Address of Main Physical Facility":"N/A",
     "Timeline (Project Maturity)":"2016-2022",
-    "Key Partners":"Foundation for the Development of New Hydrogen Technologies in Aragon, Calvera, Community Energy Scotland, DTU, EMEC, Giacomini, ITM Power, Ministry for Transport and Infrastructure, Orkney Island Council, Shapinsay Development Trus, SHFCA, Symbio FCell"
+    "Key Partners":"Foundation for the Development of New Hydrogen Technologies in Aragon, Calvera, Community Energy Scotland, DTU, EMEC, Giacomini, ITM Power, Ministry for Transport and Infrastructure, Orkney Island Council, Shapinsay Development Trust, SHFCA, Symbio FCell"
     }
   },
   {
@@ -1223,7 +1223,7 @@
     "Name of Main Physical Facility":"EMEC",
     "Address of Main Physical Facility":"The Charles Clouston Building ORIC, Back Rd, Stromness KW16 3AW",
     "Timeline (Project Maturity)":"Finished",
-    "Key Partners":"Energy of Orkney, Highlands and Islands Entreprise, the Scottish Government, Orkney Islands Council, The Carbon Trust"
+    "Key Partners":"Energy of Orkney, Highlands and Islands Enterprise, the Scottish Government, Orkney Islands Council, The Carbon Trust"
     }
   },
   {
