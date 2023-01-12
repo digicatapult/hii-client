@@ -87,7 +87,7 @@ export default function Home() {
   const [search, setSearch] = useState([])
   const [showDialog, setShowDialog] = useState(false)
   const [selectedFeature, setSelectedFeature] = useState(null)
-  const [zoomLocation, setZoomLocation] = useState([-3.5, 55])
+  const [zoomLocation, setZoomLocation] = useState(null)
   const listWrapperRef = useRef({})
 
   useEffect(() => {
