@@ -78,10 +78,6 @@ const pointColourExpression = [
   '#27847A',
 ]
 
-String.prototype.format = function () {
-  return this.toLowerCase().replace(/\s/g, '_')
-}
-
 const pointRadiusExpression = [
   'interpolate',
   ['linear'],
@@ -96,6 +92,8 @@ const searchFieldsConfig = Object.fromEntries(
   searchFields.map(({ searchField }) => [searchField, { fieldType: 'text' }])
 )
 
+const formatProjectName = (name) => name.toLowerCase().replace(/\s/g, '_')
+
 export default function Home() {
   const [search, setSearch] = useState([])
   const [showDialog, setShowDialog] = useState(false)
@@ -106,7 +104,7 @@ export default function Home() {
   const options = {
     projects: geojson.features
       .map(({ properties }) => ({
-        value: properties['Project Type'].format(),
+        value: formatProjectName(properties['Project Type']),
         label: properties['Project Type'],
         color: GetProjectTypeColour(properties['Project Type'], 'AA'),
         textColor:
@@ -133,7 +131,7 @@ export default function Home() {
     const { features, ...rest } = filterGeoJson(geojson, search)
     const filteredFeatures = features.filter(({ properties }) => {
       if (!filter?.projects.length > 0) return true
-      const project = properties['Project Type'].format()
+      const project = formatProjectName(properties['Project Type'])
       // const hydrogen = feature.properties['Type of Hydrogen'].toLowerCase().replace(/\s/g, '_')
 
       return filter.projects.includes(project)
