@@ -221,6 +221,7 @@ export default function Home() {
               setSelectedFeature(feature)
               setShowDialog(true)
             },
+            onClickZoomIn: 11,
           }}
         />
         <Dialog
