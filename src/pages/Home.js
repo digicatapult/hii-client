@@ -99,6 +99,7 @@ export default function Home() {
   const [showDialog, setShowDialog] = useState(false)
   const [selectedFeature, setSelectedFeature] = useState(null)
   const [filter, setFilter] = useState(null)
+  const [zoomLocation, setZoomLocation] = useState(null)
   const listWrapperRef = useRef({})
 
   const options = {
@@ -250,6 +251,10 @@ export default function Home() {
               )}
               onClick={() => {
                 setSelectedFeature(feature)
+                setZoomLocation([
+                  feature.geometry.coordinates[0],
+                  feature.geometry.coordinates[1],
+                ])
                 setShowDialog(true)
               }}
             />
@@ -260,6 +265,7 @@ export default function Home() {
         <Map
           token={MAPBOX_TOKEN}
           sourceJson={filteredGeoJson}
+          zoomLocation={zoomLocation}
           initialState={{
             height: '100%',
             width: '100%',
@@ -281,6 +287,7 @@ export default function Home() {
               setSelectedFeature(feature)
               setShowDialog(true)
             },
+            onClickZoomIn: 11,
           }}
         />
         <Dialog
