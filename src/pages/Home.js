@@ -48,7 +48,6 @@ const SearchWrapper = styled.div`
 
 const FilterWrapper = styled.div`
   display: grid;
-  min-height: 200px;
   height: 100%;
   align-content: start;
   gap: 5px;
@@ -109,7 +108,11 @@ export default function Home() {
       .map(({ properties }) => ({
         value: properties['Project Type'].format(),
         label: properties['Project Type'],
-        color: GetProjectTypeColour(properties['Project Type']),
+        color: GetProjectTypeColour(properties['Project Type'], 'AA'),
+        textColor:
+          properties['Project Type'] == ('Feasibility study' || 'Other')
+            ? '#FFF'
+            : '#27847A',
       }))
       .filter(
         ({ value }, i, a) => a.map(({ value }) => value).indexOf(value) == i
@@ -136,16 +139,16 @@ export default function Home() {
       return filter.projects.includes(project)
     })
 
-    if (!filter) return {
-      ...rest,
-      features,
-    }
+    if (!filter)
+      return {
+        ...rest,
+        features,
+      }
 
     return {
       ...rest,
-      features: filteredFeatures
+      features: filteredFeatures,
     }
-
   }, [search, filter])
 
   // clear selected feature on dialog close
