@@ -8,6 +8,7 @@ import {
   Search,
   Drawer,
   ListCard,
+  DropDown,
 } from '@digicatapult/ui-component-library'
 
 import { MAPBOX_TOKEN, MAPBOX_STYLE } from '../utils/env'
@@ -43,6 +44,14 @@ const SearchWrapper = styled.div`
   justify-content: center;
   font-size: 1rem;
   background: #216968;
+`
+
+const FilterWrapper = styled.div`
+  display: grid;
+  height: 100%;
+  align-content: start;
+  gap: 5px;
+  padding: 25px 15px;
 `
 
 const FullScreenGrid = styled(Grid)`
@@ -83,12 +92,32 @@ const searchFieldsConfig = Object.fromEntries(
   searchFields.map(({ searchField }) => [searchField, { fieldType: 'text' }])
 )
 
+const formatProjectName = (name) => name.toLowerCase().replace(/\s/g, '_')
+
 export default function Home() {
   const [search, setSearch] = useState([])
   const [showDialog, setShowDialog] = useState(false)
   const [selectedFeature, setSelectedFeature] = useState(null)
+  const [filter, setFilter] = useState(null)
   const [zoomLocation, setZoomLocation] = useState(null)
   const listWrapperRef = useRef({})
+
+  const options = {
+    projects: geojson.features
+      .map(({ properties }) => ({
+        value: formatProjectName(properties['Project Type']),
+        label: properties['Project Type'],
+        color: GetProjectTypeColour(properties['Project Type'], 'AA'),
+        textColor:
+          properties['Project Type'] == ('Feasibility study' || 'Other')
+            ? '#FFF'
+            : '#27847A',
+      }))
+      .filter(
+        ({ value }, i, a) => a.map(({ value }) => value).indexOf(value) == i
+      ),
+    hydrogens: [],
+  }
 
   useEffect(() => {
     if (selectedFeature) {
@@ -98,10 +127,28 @@ export default function Home() {
     }
   }, [selectedFeature])
 
-  const filteredGeoJson = useMemo(
-    () => filterGeoJson(geojson, search),
-    [search]
-  )
+  // TODO move to search util? filter util.ts?
+  const filteredGeoJson = useMemo(() => {
+    const { features, ...rest } = filterGeoJson(geojson, search)
+    const filteredFeatures = features.filter(({ properties }) => {
+      if (!filter?.projects.length > 0) return true
+      const project = formatProjectName(properties['Project Type'])
+      // const hydrogen = feature.properties['Type of Hydrogen'].toLowerCase().replace(/\s/g, '_')
+
+      return filter.projects.includes(project)
+    })
+
+    if (!filter)
+      return {
+        ...rest,
+        features,
+      }
+
+    return {
+      ...rest,
+      features: filteredFeatures,
+    }
+  }, [search, filter])
 
   // clear selected feature on dialog close
   useEffect(() => {
@@ -154,7 +201,26 @@ export default function Home() {
         </SearchWrapper>
       </Grid.Panel>
       <Grid.Panel area="filters">
-        <Drawer title="FILTERS" color="white" background="#27847A"></Drawer>
+        <Drawer title="FILTERS" color="white" background="#27847A">
+          <FilterWrapper>
+            <DropDown
+              isMulti
+              placeholder="Select range of maturity"
+              label="TYPE OF PROJECT"
+              options={options.projects}
+              variant="hii"
+              update={(res) => {
+                setFilter({
+                  ...filter,
+                  projects: res.map(({ value }) => value),
+                })
+              }}
+            />
+            {/*<DropDown isMulti label={'TYPE OF HYDROGEN'} options={options.hydrogens} variant={'hii'} update={(res) => {
+              setFilter({ ...filter, hydrogens: res.map(({ value }) => value) })
+            }}/>*/}
+          </FilterWrapper>
+        </Drawer>
       </Grid.Panel>
       <Grid.Panel area="projects">
         <ListWrapper>
