@@ -96,7 +96,6 @@ const formatProjectName = (name) => name.toLowerCase().replace(/\s/g, '_')
 
 export default function Home() {
   const [search, setSearch] = useState([])
-  const [showDialog, setShowDialog] = useState(false)
   const [selectedFeature, setSelectedFeature] = useState(null)
   const [filter, setFilter] = useState(null)
   const [zoomLocation, setZoomLocation] = useState(null)
@@ -150,10 +149,17 @@ export default function Home() {
     }
   }, [search, filter])
 
-  // clear selected feature on dialog close
   useEffect(() => {
-    if (!showDialog) setSelectedFeature(null)
-  }, [showDialog])
+    const selectedInView =
+      selectedFeature !== null &&
+      !!filteredGeoJson.features.find(
+        ({ properties: { id } }) => id === selectedFeature.properties.id
+      )
+
+    if (!selectedInView) {
+      setSelectedFeature(null)
+    }
+  }, [filteredGeoJson, selectedFeature])
 
   return (
     <FullScreenGrid
@@ -193,10 +199,7 @@ export default function Home() {
             placeholder="Search"
             color="#216968"
             background="white"
-            onSubmit={(s) => {
-              setSearch(s)
-              setShowDialog(false)
-            }}
+            onSubmit={setSearch}
           />
         </SearchWrapper>
       </Grid.Panel>
@@ -255,7 +258,6 @@ export default function Home() {
                   feature.geometry.coordinates[0],
                   feature.geometry.coordinates[1],
                 ])
-                setShowDialog(true)
               }}
             />
           ))}
@@ -285,16 +287,16 @@ export default function Home() {
             pointStrokeWidth: 1,
             onPointClick: (feature) => {
               setSelectedFeature(feature)
-              setShowDialog(true)
             },
             onClickZoomIn: 11,
           }}
         />
-        <Dialog
-          open={showDialog}
-          setOpen={setShowDialog}
-          feature={selectedFeature}
-        />
+        {selectedFeature === null ? null : (
+          <Dialog
+            onClose={() => setSelectedFeature(null)}
+            feature={selectedFeature}
+          />
+        )}
       </Grid.Panel>
     </FullScreenGrid>
   )

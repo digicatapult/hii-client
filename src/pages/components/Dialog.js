@@ -15,25 +15,20 @@ const Wrapper = styled.div`
   left: 5ch;
 `
 
-export default function Dialog({ open, setOpen, feature }) {
+export default function Dialog({ onClose, feature }) {
   const properties = feature?.properties
 
   const dialogRef = useRef(null)
   useEffect(() => {
     const dialog = dialogRef.current
-    if (open) {
-      dialog.show()
-    } else {
-      dialog.close()
-    }
+    dialog.show()
+  }, [])
 
-    const listener = () => {
-      setOpen(false)
-    }
-    dialog?.addEventListener('close', listener)
-
-    return () => dialog?.removeEventListener('close', listener)
-  }, [open, setOpen])
+  useEffect(() => {
+    const dialog = dialogRef.current
+    dialog?.addEventListener('close', onClose)
+    return () => dialog?.removeEventListener('close', onClose)
+  }, [onClose])
 
   return (
     <Wrapper>
