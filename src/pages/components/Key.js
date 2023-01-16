@@ -29,6 +29,7 @@ const Row = styled.div`
   align-items: center;
   justify-content: space-between;
   color: #6d6d6d;
+  font-size: 0.9em;
 
   ::after {
     content: '';
@@ -55,7 +56,7 @@ export default function Key({}) {
   return (
     <Wrapper>
       {isOpen && (
-        <HelpContainer width="30ch" background="#FFF">
+        <HelpContainer width="25ch" background="#FFF">
           <Rows />
         </HelpContainer>
       )}
