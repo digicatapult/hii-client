@@ -12,8 +12,9 @@ import {
 } from '@digicatapult/ui-component-library'
 
 import { MAPBOX_TOKEN, MAPBOX_STYLE } from '../utils/env'
-import { GetProjectTypeColour } from '../utils/theme'
+import { getProjectTypeColour } from '../utils/theme'
 import Dialog from './components/Dialog'
+import Key from './components/Key'
 import { filterGeoJson, searchFields } from '../utils/search'
 
 import LogoPNG from '../assets/images/hii-logo.png'
@@ -106,7 +107,7 @@ export default function Home() {
       .map(({ properties }) => ({
         value: formatProjectName(properties['Project Type']),
         label: properties['Project Type'],
-        color: GetProjectTypeColour(properties['Project Type'], 'AA'),
+        color: getProjectTypeColour(properties['Project Type'], 'AA'),
         textColor:
           properties['Project Type'] == ('Feasibility study' || 'Other')
             ? '#FFF'
@@ -241,7 +242,7 @@ export default function Home() {
               orientation="left"
               background={
                 feature.properties.id === selectedFeature?.properties.id
-                  ? GetProjectTypeColour(
+                  ? getProjectTypeColour(
                       feature.properties['Project Type'],
                       '30'
                     )
@@ -249,7 +250,7 @@ export default function Home() {
               }
               height="5em"
               width="100%"
-              flashColor={GetProjectTypeColour(
+              flashColor={getProjectTypeColour(
                 feature.properties['Project Type']
               )}
               onClick={() => {
@@ -297,6 +298,7 @@ export default function Home() {
             feature={selectedFeature}
           />
         )}
+        <Key />
       </Grid.Panel>
     </FullScreenGrid>
   )

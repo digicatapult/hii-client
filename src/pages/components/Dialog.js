@@ -7,7 +7,7 @@ import {
   Link,
 } from '@digicatapult/ui-component-library'
 
-import { GetProjectTypeColour } from '../../utils/theme'
+import { getProjectTypeColour } from '../../utils/theme'
 
 const Wrapper = styled.div`
   position: absolute;
@@ -69,7 +69,7 @@ export default function Dialog({ onClose, feature }) {
                 title="Project details"
                 padding="1em 1.5em"
                 margin="0 -1.5em"
-                background={GetProjectTypeColour(
+                background={getProjectTypeColour(
                   properties?.['Project Type'],
                   '50'
                 )}
