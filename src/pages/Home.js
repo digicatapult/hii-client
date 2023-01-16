@@ -6,6 +6,7 @@ import React, {
   lazy,
   Suspense,
 } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import {
   Grid,
@@ -107,6 +108,24 @@ export default function Home() {
   const [filter, setFilter] = useState(null)
   const [zoomLocation, setZoomLocation] = useState(null)
   const listWrapperRef = useRef({})
+  const navigate = useNavigate()
+
+  const { projectId: paramId } = useParams()
+
+  useEffect(() => {
+    if (paramId) {
+      const feature = geojson.features.find(
+        ({ properties: { id } }) => id === paramId
+      )
+      if (feature) {
+        setSelectedFeature(feature)
+        setZoomLocation([
+          feature.geometry.coordinates[0],
+          feature.geometry.coordinates[1],
+        ])
+      }
+    }
+  }, [paramId])
 
   const options = {
     projects: geojson.features
@@ -156,17 +175,17 @@ export default function Home() {
     }
   }, [search, filter])
 
-  useEffect(() => {
-    const selectedInView =
-      selectedFeature !== null &&
-      !!filteredGeoJson.features.find(
-        ({ properties: { id } }) => id === selectedFeature.properties.id
-      )
+  // useEffect(() => {
+  //   const selectedInView =
+  //     selectedFeature !== null &&
+  //     !!filteredGeoJson.features.find(
+  //       ({ properties: { id } }) => id === selectedFeature.properties.id
+  //     )
 
-    if (!selectedInView) {
-      setSelectedFeature(null)
-    }
-  }, [filteredGeoJson, selectedFeature])
+  //   if (!selectedInView) {
+  //     setSelectedFeature(null)
+  //   }
+  // }, [filteredGeoJson, selectedFeature])
 
   return (
     <FullScreenGrid
@@ -260,6 +279,7 @@ export default function Home() {
                 feature.properties['Project Type']
               )}
               onClick={() => {
+                navigate(`/${feature.properties.id}`, { replace: true })
                 setSelectedFeature(feature)
                 setZoomLocation([
                   feature.geometry.coordinates[0],
@@ -294,6 +314,7 @@ export default function Home() {
               pointStrokeColor: '#8a8988',
               pointStrokeWidth: 1,
               onPointClick: (feature) => {
+                navigate(`/${feature.properties.id}`, { replace: true })
                 setSelectedFeature(feature)
               },
               onClickZoomIn: 11,
