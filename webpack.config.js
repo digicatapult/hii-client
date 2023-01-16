@@ -3,6 +3,7 @@ const dotenv = require('dotenv')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { DefinePlugin } = require('webpack')
 const CopyPlugin = require('copy-webpack-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = (vars) => {
   const env = {
@@ -70,6 +71,9 @@ module.exports = (vars) => {
           { from: path.resolve(__dirname, 'public', '*'), to: '[name][ext]' },
         ],
       }),
+      new BundleAnalyzerPlugin({
+        analyzerMode: 'disabled', // disable analyser. Replace with "server" or "static" to render analyser
+      })
     ],
     externals: {
       react: 'React',
