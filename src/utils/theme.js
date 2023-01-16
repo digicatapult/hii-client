@@ -1,4 +1,4 @@
-export const colours = {
+export const projectColours = {
   'Feasibility Study': '#27847A',
   'Funding/Competition': '#80CC72',
   'Testing & certification': '#B6EFA0',
@@ -8,6 +8,6 @@ export const colours = {
 }
 
 export const getProjectTypeColour = (project, alpha = 'FF') => {
-  const colour = colours[project] ?? '#27847A'
+  const colour = projectColours[project] ?? '#27847A'
   return `${colour}${alpha}`
 }

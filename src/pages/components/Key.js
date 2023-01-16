@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { HelpContainer, ToggleButton } from '@digicatapult/ui-component-library'
 
-import { colours } from '../../utils/theme'
+import { projectColours } from '../../utils/theme'
 
 const Wrapper = styled.div`
   position: absolute;
@@ -28,6 +28,7 @@ const Row = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  color: #6d6d6d;
 
   ::after {
     content: '';
@@ -39,7 +40,7 @@ const Row = styled.div`
 
 const Rows = () => (
   <RowWrapper>
-    {Object.entries(colours).map(([key, value]) => (
+    {Object.entries(projectColours).map(([key, value]) => (
       <Row key={key} color={value}>
         {key}
       </Row>
