@@ -1,6 +1,6 @@
 {
   "name": "@digicatapult/hii-client",
-  "version": "0.10.2",
+  "version": "0.10.3",
   "description": "User interface for HII project",
   "homepage": "https://digicatapult.github.io/hii-client/",
   "main": "src/index.js",
@@ -64,6 +64,7 @@
     "style-loader": "^3.3.1",
     "url-loader": "^4.1.1",
     "webpack": "^5.74.0",
+    "webpack-bundle-analyzer": "^4.7.0",
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.9.3"
   },

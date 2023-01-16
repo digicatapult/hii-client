@@ -1,9 +1,15 @@
-import React, { useMemo, useState, useEffect, useRef } from 'react'
+import React, {
+  useMemo,
+  useState,
+  useEffect,
+  useRef,
+  lazy,
+  Suspense,
+} from 'react'
 import styled from 'styled-components'
 import { v4 as uuid } from 'uuid'
 import {
   Grid,
-  Map,
   AppBar,
   Search,
   Drawer,
@@ -13,13 +19,16 @@ import {
 
 import { MAPBOX_TOKEN, MAPBOX_STYLE } from '../utils/env'
 import { getProjectTypeColour } from '../utils/theme'
-import Dialog from './components/Dialog'
 import Key from './components/Key'
 import { filterGeoJson, searchFields } from '../utils/search'
 
 import LogoPNG from '../assets/images/hii-logo.png'
 import LogoWebP from '../assets/images/hii-logo.webp'
 import geojson from '../assets/hii.json'
+
+const Dialog = lazy(() => import('./components/Dialog'))
+const Map = lazy(() => import('./components/Map'))
+
 // give each feature an id
 geojson.features = geojson.features.map((f) => {
   return { ...f, properties: { ...f.properties, id: uuid() } }
@@ -94,6 +103,9 @@ const searchFieldsConfig = Object.fromEntries(
 )
 
 const formatProjectName = (name) => name.toLowerCase().replace(/\s/g, '_')
+
+// TODO: loading spinner
+const SuspenseFallback = () => <></>
 
 export default function Home() {
   const [search, setSearch] = useState([])
@@ -265,38 +277,42 @@ export default function Home() {
         </ListWrapper>
       </Grid.Panel>
       <Grid.Panel area="main" style={{ position: 'relative' }}>
-        <Map
-          token={MAPBOX_TOKEN}
-          sourceJson={filteredGeoJson}
-          zoomLocation={zoomLocation}
-          initialState={{
-            height: '100%',
-            width: '100%',
-            zoom: 5.5,
-            style: MAPBOX_STYLE,
-          }}
-          cluster={true}
-          clusterOptions={{
-            clusterColor: '#216968',
-            clusterRadius: 14,
-            clusterMaxZoom: 10,
-          }}
-          pointOptions={{
-            pointExpression: pointColourExpression,
-            pointRadiusExpression: pointRadiusExpression,
-            pointStrokeColor: '#8a8988',
-            pointStrokeWidth: 1,
-            onPointClick: (feature) => {
-              setSelectedFeature(feature)
-            },
-            onClickZoomIn: 11,
-          }}
-        />
-        {selectedFeature === null ? null : (
-          <Dialog
-            onClose={() => setSelectedFeature(null)}
-            feature={selectedFeature}
+        <Suspense fallback={<SuspenseFallback />}>
+          <Map
+            token={MAPBOX_TOKEN}
+            sourceJson={filteredGeoJson}
+            zoomLocation={zoomLocation}
+            initialState={{
+              height: '100%',
+              width: '100%',
+              zoom: 5.5,
+              style: MAPBOX_STYLE,
+            }}
+            cluster={true}
+            clusterOptions={{
+              clusterColor: '#216968',
+              clusterRadius: 14,
+              clusterMaxZoom: 10,
+            }}
+            pointOptions={{
+              pointExpression: pointColourExpression,
+              pointRadiusExpression: pointRadiusExpression,
+              pointStrokeColor: '#8a8988',
+              pointStrokeWidth: 1,
+              onPointClick: (feature) => {
+                setSelectedFeature(feature)
+              },
+              onClickZoomIn: 11,
+            }}
           />
+        </Suspense>
+        {selectedFeature === null ? null : (
+          <Suspense fallback={<SuspenseFallback />}>
+            <Dialog
+              onClose={() => setSelectedFeature(null)}
+              feature={selectedFeature}
+            />
+          </Suspense>
         )}
         <Key />
       </Grid.Panel>
