@@ -6,7 +6,7 @@ import React, {
   lazy,
   Suspense,
 } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
 import {
   Grid,
@@ -147,6 +147,7 @@ const SuspenseFallback = () => <></>
 
 export default function Home() {
   const [search, setSearch] = useState([])
+  const [searchValue, setSearchValue] = useState('')
   const [selectedFeature, setSelectedFeature] = useState(null)
   const [filter, setFilter] = useState({ projects: [], hydrogens: [] })
   const [zoomLocation, setZoomLocation] = useState(null)
@@ -154,6 +155,18 @@ export default function Home() {
   const listWrapperRef = useRef({})
   const options = filterOptions()
   const { projectId: paramId } = useParams()
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  useEffect(() => {
+    const q = searchParams.get('q')
+    if (q) {
+      setSearchValue(q)
+    }
+  }, [searchParams])
+
+  useEffect(() => {
+    setSearchParams(new URLSearchParams({ q: searchValue }))
+  }, [searchValue, setSearchParams])
 
   useEffect(() => {
     if (paramId) {
@@ -254,7 +267,11 @@ export default function Home() {
             placeholder="Search"
             color="#216968"
             background="white"
-            onSubmit={setSearch}
+            value={searchValue}
+            setValue={setSearchValue}
+            onSubmit={(s) => {
+              setSearch(s)
+            }}
           />
         </SearchWrapper>
       </Grid.Panel>
