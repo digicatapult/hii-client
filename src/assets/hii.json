@@ -19,7 +19,7 @@
         "Funding": "£624,000.00",
         "Type of Hydrogen": [
           "Electrolysis",
-          " CCSU-enabled"
+          "CCUS-enabled"
         ],
         "Region (?)": "South West (England)",
         "Name of Lead Partner": "University of Exeter",
@@ -175,7 +175,7 @@
         "Funding": "£2,950,000.00",
         "Type of Hydrogen": [
           "Electrolysis",
-          " CCSU-enabled"
+          "CCUS-enabled"
         ],
         "Region (?)": "Various",
         "Name of Lead Partner": "Department for Business, Energy & Industrial Strategy",
@@ -362,7 +362,7 @@
         "Funding": "£72,000,000.00",
         "Type of Hydrogen": [
           "Electrolysis",
-          " CCSU-enabled"
+          "CCUS-enabled"
         ],
         "Region (?)": "North West (England)",
         "Name of Lead Partner": "HyNet",
@@ -456,7 +456,7 @@
         "Funding": "£7,000,000.00",
         "Type of Hydrogen": [
           "Waste",
-          " Electrolysis"
+          "Electrolysis"
         ],
         "Region (?)": "North West (England)",
         "Name of Lead Partner": "Protos ",
@@ -922,7 +922,7 @@
         "Funding": "N/A",
         "Type of Hydrogen": [
           "Electrolysis",
-          " CCUS-enabled"
+          "CCUS-enabled"
         ],
         "Region (?)": "North East (England)",
         "Name of Lead Partner": "BP",
@@ -954,7 +954,7 @@
         "Funding": "£173,141.59",
         "Type of Hydrogen": [
           "Waste",
-          " Electrolysis"
+          "Electrolysis"
         ],
         "Region (?)": "Yorkshire and The Humber",
         "Name of Lead Partner": "Nanomox Ltd",
@@ -986,7 +986,7 @@
         "Funding": "£9,390,000.00",
         "Type of Hydrogen": [
           "Bio",
-          " Other"
+          "Other"
         ],
         "Region (?)": "Northern Ireland",
         "Name of Lead Partner": "Belfast Metropolitan College",
