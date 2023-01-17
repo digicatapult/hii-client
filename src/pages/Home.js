@@ -7,7 +7,6 @@ import React, {
   Suspense,
 } from 'react'
 import styled from 'styled-components'
-import { v4 as uuid } from 'uuid'
 import {
   Grid,
   AppBar,
@@ -28,11 +27,6 @@ import geojson from '../assets/hii.json'
 
 const Dialog = lazy(() => import('./components/Dialog'))
 const Map = lazy(() => import('./components/Map'))
-
-// give each feature an id
-geojson.features = geojson.features.map((f) => {
-  return { ...f, properties: { ...f.properties, id: uuid() } }
-})
 
 const HomeBar = styled.picture`
   height: 100%;

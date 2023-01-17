@@ -8,6 +8,7 @@
        "coordinates":  [ -3.53379,50.735833 ]
     },
     "properties": {
+    "id":"7174aa1c-3ac6-4a56-9f92-549fb317ba3a",
     "Name":"Cornwall Marine Hydrogen Centre",
     "Link":"https://www.cornwallmarinehydrogencentre.com/",
     "Part of larger programme?":"Yes",
@@ -33,6 +34,7 @@
        "coordinates":  [ -1.087217,50.811373 ]
     },
     "properties": {
+    "id":"160ec422-e7a7-4668-b319-f97b568c6267",
     "Name":"Clean Tyne Shipping Corridor",
     "Link":"https://cp.catapult.org.uk/news/port-zero-and-green-shipping-corridor-studies-green-lit/",
     "Part of larger programme?":"Yes",
@@ -58,6 +60,7 @@
        "coordinates":  [ -1.088419,50.811556 ]
     },
     "properties": {
+    "id":"b73e11d8-dfa5-4db8-b09b-51b837289de4",
     "Name":"SHAPE UK (Shipping, Hydrogen and Port Ecosystems UK)",
     "Link":"https://portsmouth-port.co.uk/about-us/sustainability/shape-shipping-hydrogen-port-ecosystems-uk/#:~:text=The%20port%20aims%20to%20have,zero%20emission%20shipping%20by%202050.",
     "Part of larger programme?":"Yes",
@@ -83,6 +86,7 @@
        "coordinates":  [ -0.238056,50.831111 ]
     },
     "properties": {
+    "id":"95ae295a-b198-40b0-919a-64631c36ef0d",
     "Name":"Shoreham Port Green hydrogen (H2 Green)",
     "Link":"https://www.shoreham-port.co.uk/need-to-know/news/shoreham-port-local-fuels-ricardo-and-h2-green-move-forward-with-green-hydrogen-hub-collaboration-2079/",
     "Part of larger programme?":"Yes",
@@ -108,6 +112,7 @@
        "coordinates":  [ -1.435713,50.909704 ]
     },
     "properties": {
+    "id":"5bdd62f9-34c8-4c91-a352-029d732d3def",
     "Name":"Southampton Water",
     "Link":"https://sgn.co.uk/about-us/future-of-gas/southampton-water",
     "Part of larger programme?":"No",
@@ -133,6 +138,7 @@
        "coordinates":  [ -0.1280679316,51.49943455 ]
     },
     "properties": {
+    "id":"ff529f23-7d13-41f2-a45e-4cec920ce4eb",
     "Name":"Industrial Hydrogen Accelerator Programme: Stream 2A (IHA Stream 2A) - Feasibility studies",
     "Link":"https://www.gov.uk/government/publications/industrial-hydrogen-accelerator-programme-successful-projects/industrial-hydrogen-accelerator-programme-stream-2a-successful-projects--2",
     "Part of larger programme?":"Yes",
@@ -158,6 +164,7 @@
        "coordinates":  [ -0.1262,51.5075 ]
     },
     "properties": {
+    "id":"6c6b24bb-6493-4d74-b33f-f41128937b7a",
     "Name":"Project Union (National Grid Gas) ",
     "Link":"https://www.nationalgrid.com/gas-transmission/future-of-gas/hydrogen",
     "Part of larger programme?":"Yes",
@@ -183,6 +190,7 @@
        "coordinates":  [ -0.126606,51.507948 ]
     },
     "properties": {
+    "id":"5d48e327-c2bf-48fb-ad55-47f59aa7f03f",
     "Name":"Humber Low Carbon Pipelines",
     "Link":"https://www.nationalgrid.com/our-businesses/national-grid-ventures/humber-low-carbon-pipelines ",
     "Part of larger programme?":"Yes",
@@ -208,6 +216,7 @@
        "coordinates":  [ -0.0804,51.5153 ]
     },
     "properties": {
+    "id":"7896d395-0a04-4cd2-b2d7-ddd0a79aab0f",
     "Name":"ERM Dolphyn",
     "Link":"https://ermdolphyn.erm.com/p/1",
     "Part of larger programme?":"Yes",
@@ -233,6 +242,7 @@
        "coordinates":  [ -3.824355,51.627141 ]
     },
     "properties": {
+    "id":"dd9e1baa-812c-499c-b2cb-41925fd1f0aa",
     "Name":"Hydrogen Research and Demonstration Centre",
     "Link":"http://www.h2wales.org.uk/pages/hydrogen-centre/hydrogen-centre.html",
     "Part of larger programme?":"No",
@@ -258,6 +268,7 @@
        "coordinates":  [ -5.037405,51.710198 ]
     },
     "properties": {
+    "id":"3acedd3e-c265-479a-85af-bf5c211cbdfd",
     "Name":"Milford Haven Energy Kingdom",
     "Link":"https://www.mhpa.co.uk/milford-haven-energy-kingdom/",
     "Part of larger programme?":"Yes",
@@ -283,6 +294,7 @@
        "coordinates":  [ -2.3021,51.7455 ]
     },
     "properties": {
+    "id":"507aa129-9264-4fed-8d1a-dacc14a249d8",
     "Name":"Hynet North West",
     "Link":"https://hynet.co.uk/",
     "Part of larger programme?":"Yes",
@@ -308,6 +320,7 @@
        "coordinates":  [ -1.778,52.1233 ]
     },
     "properties": {
+    "id":"792bd553-0857-4725-b7a9-15d30098155d",
     "Name":"The hydroFLEX train - University of Birmingham",
     "Link":"https://www.birmingham.ac.uk/news/2020/hydroflex-secures-funding-for-hydrogen-powered-train-design",
     "Part of larger programme?":"Yes ",
@@ -333,6 +346,7 @@
        "coordinates":  [ -1.461394,52.553451 ]
     },
     "properties": {
+    "id":"4bf5adc2-904d-4236-a871-ad002866d918",
     "Name":"MIRA Technology Park",
     "Link":"https://hydrogen-central.com/5m-ev-hydrogen-vehicle-testing-facility-gets-ahead-mira-technology-park/",
     "Part of larger programme?":"No",
@@ -358,6 +372,7 @@
        "coordinates":  [ -2.841482,53.271558 ]
     },
     "properties": {
+    "id":"11887cde-1295-4238-8c9a-7055427e31ec",
     "Name":"Protos Park plastic to Hydrogen",
     "Link":"https://www.protos.co.uk/news/plans-for-uk-first-plastics-to-hydrogen-facility-at-protos-approved/",
     "Part of larger programme?":"No ",
@@ -383,6 +398,7 @@
        "coordinates":  [ -4.623448,53.297841 ]
     },
     "properties": {
+    "id":"df58d536-8019-4ddb-844b-36f2e89f903b",
     "Name":"Holyhead Hydrogen Hub",
     "Link":"https://www.mentermon.com/en/priosectau/hwb-hydrogen/",
     "Part of larger programme?":"No",
@@ -408,6 +424,7 @@
        "coordinates":  [ -1.48853,53.381363 ]
     },
     "properties": {
+    "id":"07357978-0266-41d0-a19a-5f175fe85e42",
     "Name":"Translational Energy Research Centre (TERC)",
     "Link":"https://terc.ac.uk/equipment/hydrogen-equipment/",
     "Part of larger programme?":"No",
@@ -433,6 +450,7 @@
        "coordinates":  [ -1.3836,53.3937 ]
     },
     "properties": {
+    "id":"1e46ae10-f531-4c4a-8b03-3fb2b375240d",
     "Name":"Sustainable Aviation Fuels Innovation Centre (SAF-IC)",
     "Link":"https://saf-ic.ac.uk/",
     "Part of larger programme?":"Yes",
@@ -458,6 +476,7 @@
        "coordinates":  [ -2.9938,53.4 ]
     },
     "properties": {
+    "id":"9a5f54f4-ad84-4013-8ed6-9a209356f338",
     "Name":"North West Hydrogen Buses",
     "Link":"https://www.nwhydrogenalliance.co.uk/news-stories/blog-deploying-hydrogen-as-a-transport-fuel-in-the-north-west-mark-griffin-at-boc/",
     "Part of larger programme?":"No",
@@ -483,6 +502,7 @@
        "coordinates":  [ -2.7307,53.4416 ]
     },
     "properties": {
+    "id":"f8c2d481-b161-48cd-a67e-dd22566061bf",
     "Name":"Glass Futures",
     "Link":"https://www.glass-futures.org/",
     "Part of larger programme?":"Yes",
@@ -508,6 +528,7 @@
        "coordinates":  [ -0.07132,53.578133 ]
     },
     "properties": {
+    "id":"6919f3c1-09e2-4456-bbb5-8c95865a1e35",
     "Name":"Project Oyster",
     "Link":"https://oysterh2.eu/",
     "Part of larger programme?":"Yes",
@@ -533,6 +554,7 @@
        "coordinates":  [ -0.2502445,53.6333774 ]
     },
     "properties": {
+    "id":"65973cf5-73b0-43ca-a9a2-4329f5018bd7",
     "Name":"Gigastack",
     "Link":"https://gigastack.co.uk/ ",
     "Part of larger programme?":"Yes",
@@ -558,6 +580,7 @@
        "coordinates":  [ -0.255333,53.653999 ]
     },
     "properties": {
+    "id":"e44c0875-161e-4ba5-b7b4-d3a4713055ba",
     "Name":"Project Mayflower",
     "Link":"https://www.uniper.energy/projects-and-cases/port-immingham-decarbonisation-project",
     "Part of larger programme?":"Yes",
@@ -583,6 +606,7 @@
        "coordinates":  [ -0.2553,53.654 ]
     },
     "properties": {
+    "id":"212ca1db-ee51-4ed2-94f1-a2fd9fa8db98",
     "Name":"Humber H2 Hub ",
     "Link":"https://www.uniper.energy/projects-and-cases/humber-hub",
     "Part of larger programme?":"Yes",
@@ -608,6 +632,7 @@
        "coordinates":  [ -1.4285,53.7935 ]
     },
     "properties": {
+    "id":"3e6f4de2-0e17-4b06-924a-833ecd1babe4",
     "Name":"H21 Leeds City Gate",
     "Link":"https://h21.green/projects/h21-leeds-city-gate/",
     "Part of larger programme?":"Yes",
@@ -633,6 +658,7 @@
        "coordinates":  [ -2.864968,54.074166 ]
     },
     "properties": {
+    "id":"c7d08364-8cd6-4ce1-a6a7-0390a2d82f28",
     "Name":"Bay Hydrogen Hub – Hydrogen4Hanson",
     "Link":"https://www.hanson.co.uk/en/news-and-events/funding-secured-to-investigate-fuel-at-asphalt-sites",
     "Part of larger programme?":"Yes",
@@ -658,6 +684,7 @@
        "coordinates":  [ -1.439661,54.515813 ]
     },
     "properties": {
+    "id":"03921bd8-77c7-4d78-a83a-aba8390c22cf",
     "Name":"Tees Valley Hydrogen Transport Hub",
     "Link":"https://www.gov.uk/government/publications/tees-valley-multi-modal-hydrogen-transport-hub",
     "Part of larger programme?":"Yes",
@@ -683,6 +710,7 @@
        "coordinates":  [ -1.438988,54.513834 ]
     },
     "properties": {
+    "id":"75b57fa7-f589-4ee5-b199-b47a1dd80990",
     "Name":"Teesside Hydrogen Vehicle Ecosystem",
     "Link":"https://www.trl.co.uk/projects/teesside-hydrogen-vehicle-ecosystem",
     "Part of larger programme?":"No",
@@ -708,6 +736,7 @@
        "coordinates":  [ -1.432666,54.512767 ]
     },
     "properties": {
+    "id":"80aec960-bbfb-44d4-890b-8247e3d785bc",
     "Name":"H2NorthEast",
     "Link":"https://www.kellasmidstream.com/assets-and-projects/hydrogen",
     "Part of larger programme?":"Yes",
@@ -733,6 +762,7 @@
        "coordinates":  [ -1.428226,54.515136 ]
     },
     "properties": {
+    "id":"03d598da-3e39-4b49-9574-01fb48775a0d",
     "Name":"BP H2 Teesside",
     "Link":"https://www.bp.com/en_gb/united-kingdom/home/where-we-operate/reimagining-teesside/Spotlight-on-bp-teesside-projects.html",
     "Part of larger programme?":"Yes",
@@ -758,6 +788,7 @@
        "coordinates":  [ -1.159505,54.580028 ]
     },
     "properties": {
+    "id":"4c94d03f-f783-4aee-ad9a-4d853742f36c",
     "Name":"OISH – Hydrogen from steelmaking waste as green fuel for steel production (IHA 2A)",
     "Link":"https://nanomox.net/oish-project",
     "Part of larger programme?":"Yes",
@@ -783,6 +814,7 @@
        "coordinates":  [ -5.9366,54.5999 ]
     },
     "properties": {
+    "id":"1d60b88d-94b0-497a-812b-71df6de470de",
     "Name":"GenComm project",
     "Link":"https://www.nweurope.eu/projects/project-search/gencomm-generating-energy-secure-communities/",
     "Part of larger programme?":"Yes",
@@ -808,6 +840,7 @@
        "coordinates":  [ -5.947099,54.626358 ]
     },
     "properties": {
+    "id":"6a721df6-4eba-4a9a-a183-3afd809ddf0e",
     "Name":"Northern Ireland Water Hydrogen Project",
     "Link":"https://www.niwater.com/climatechange/hydrogen-economy/",
     "Part of larger programme?":"No",
@@ -833,6 +866,7 @@
        "coordinates":  [ -1.730374849,54.93537373 ]
     },
     "properties": {
+    "id":"db1a609b-02d4-4725-9fe4-2a9d3ab51e2b",
     "Name":"Smart Hydrogen-Gas Network (SHyGaN) Concept",
     "Link":"https://www.gov.uk/government/publications/industrial-hydrogen-accelerator-programme-successful-projects/industrial-hydrogen-accelerator-programme-stream-1-successful-projects",
     "Part of larger programme?":"Yes",
@@ -858,6 +892,7 @@
        "coordinates":  [ -3.879748,55.642496 ]
     },
     "properties": {
+    "id":"fd9d1d87-f90d-4ac3-9215-da9a54110a93",
     "Name":"Hy2Go",
     "Link":"https://hy2go.uk/",
     "Part of larger programme?":"No",
@@ -883,6 +918,7 @@
        "coordinates":  [ -4.2694,55.8632 ]
     },
     "properties": {
+    "id":"b682a973-f6b9-45f4-bfc2-e25b2ff2f822",
     "Name":"Whitelee (Scottish Power)",
     "Link":"https://www.scottishpowerrenewables.com/pages/whitelee.aspx",
     "Part of larger programme?":"No",
@@ -908,6 +944,7 @@
        "coordinates":  [ -3.4088,55.9421 ]
     },
     "properties": {
+    "id":"3fba33b5-8fca-419a-9c04-2e3104569fc0",
     "Name":"H100 Fife",
     "Link":"https://www.h100fife.co.uk/",
     "Part of larger programme?":"Yes",
@@ -933,6 +970,7 @@
        "coordinates":  [ -3.2012,55.9458 ]
     },
     "properties": {
+    "id":"80060b51-6b83-443c-9f7c-8501e59982cc",
     "Name":"Salamander (ERM)",
     "Link":"https://www.erm.com/news/opportunity-for-the-worlds-first-combined-floating-wind-and-green-hydrogen-project-off-the-east-coast-of-scotland/",
     "Part of larger programme?":"No",
@@ -958,6 +996,7 @@
        "coordinates":  [ -2.0776,57.1004 ]
     },
     "properties": {
+    "id":"d3ff669e-edde-4e61-a915-f4eb887da561",
     "Name":"Hydrogen Turbine 1 (HT1)",
     "Link":"https://group.vattenfall.com/uk/what-we-do/our-projects/european-offshore-wind-deployment-centre/aberdeen-hydrogen ",
     "Part of larger programme?":"Yes",
@@ -983,6 +1022,7 @@
        "coordinates":  [ -2.1116,57.145 ]
     },
     "properties": {
+    "id":"02862371-8a96-45fc-9e3a-a9ec3c637739",
     "Name":"Scottish Net Zero Roadmap (SNZR) Phase 2",
     "Link":"https://snzr.co.uk/",
     "Part of larger programme?":"Yes",
@@ -1008,6 +1048,7 @@
        "coordinates":  [ -2.096294,57.148364 ]
     },
     "properties": {
+    "id":"5e519a8e-8cfc-4676-b572-b28bcec88222",
     "Name":"H2 Aberdeen",
     "Link":"https://www.aberdeencity.gov.uk/services/environment/h2-aberdeen#:~:text=H2%20Aberdeen%20is%20an%20initiative,hydrogen%20technologies%20in%20the%20city.",
     "Part of larger programme?":"Yes",
@@ -1033,6 +1074,7 @@
        "coordinates":  [ -2.095497,57.147898 ]
     },
     "properties": {
+    "id":"eb0cc09e-f8ce-4b4e-b223-f1728bc61994",
     "Name":"HyTrEc2 – Interreg North Sea Region ",
     "Link":"https://northsearegion.eu/hytrec2/",
     "Part of larger programme?":"Yes",
@@ -1058,6 +1100,7 @@
        "coordinates":  [ -2.0947,57.1481 ]
     },
     "properties": {
+    "id":"5f19d78f-1298-4e37-8494-2856c7a5b738",
     "Name":"Hector – Interreg North West Europe",
     "Link":"https://www.nweurope.eu/projects/project-search/hector-hydrogen-waste-collection-vehicles-in-north-west-europe/",
     "Part of larger programme?":"Yes",
@@ -1083,6 +1126,7 @@
        "coordinates":  [ -2.094167,57.148649 ]
     },
     "properties": {
+    "id":"18814c10-cd93-487a-8c92-3fe31d44763e",
     "Name":"JIVE – Fuel Cell & Hydrogen Joint Undertaking",
     "Link":"https://www.fuelcellbuses.eu/projects/jive",
     "Part of larger programme?":"Yes",
@@ -1108,6 +1152,7 @@
        "coordinates":  [ 1.9728,57.2224 ]
     },
     "properties": {
+    "id":"f9fa1bae-46fe-48a7-a53a-cfaf326c1a60",
     "Name":"Vattenfall HT1",
     "Link":"https://group.vattenfall.com/uk/newsroom/pressreleases/2022/aberdeen-hydrogen",
     "Part of larger programme?":"No",
@@ -1133,6 +1178,7 @@
        "coordinates":  [ -1.838192,57.570622 ]
     },
     "properties": {
+    "id":"1721d8eb-6fe8-4877-93bd-e150338b7bb7",
     "Name":"Acorn CCS (aka Scottish Cluster)",
     "Link":"https://theacornproject.uk/",
     "Part of larger programme?":"Yes",
@@ -1158,6 +1204,7 @@
        "coordinates":  [ -2.904658,58.953735 ]
     },
     "properties": {
+    "id":"e0c54d48-ef40-4977-bf3b-a5ae6285a587",
     "Name":"Kirkwall Airport CHP (Combined Heat and Power) Unit.",
     "Link":"https://www.emec.org.uk/projects/hydrogen-projects/kirkwall-airport-chp/",
     "Part of larger programme?":"Yes",
@@ -1183,6 +1230,7 @@
        "coordinates":  [ -3.3014,58.9634 ]
     },
     "properties": {
+    "id":"a5f241ef-0c42-4f23-aa20-dcde6e813cc1",
     "Name":"BIG HIT (Building Innovative Green Hydrogen Systems in Isolated Territories)",
     "Link":"https://www.bighit.eu/",
     "Part of larger programme?":"Yes",
@@ -1208,6 +1256,7 @@
        "coordinates":  [ -3.301831,58.963461 ]
     },
     "properties": {
+    "id":"c44ab6bb-b345-44a8-a2f6-858d4272e3a6",
     "Name":"European Marine Energy Centre (EMEC)",
     "Link":"https://www.emec.org.uk/",
     "Part of larger programme?":"No",
@@ -1233,6 +1282,7 @@
        "coordinates":  [ -2.9938,58.9869 ]
     },
     "properties": {
+    "id":"803f6e3e-f627-46dd-a7a4-8424b7e629eb",
     "Name":"HySeas",
     "Link":"https://news.st-andrews.ac.uk/archive/ferguson-marine-to-develop-renewables-powered-hydrogen-ferry-hyseas-iii/",
     "Part of larger programme?":"No",
