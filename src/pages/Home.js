@@ -37,7 +37,6 @@ geojson.features = geojson.features.map((f) => {
       'Type of Hydrogen': f.properties['Type of Hydrogen']
         .split(';')
         .map((type) => type.trim()),
-      id: uuid(),
     },
   }
 })
