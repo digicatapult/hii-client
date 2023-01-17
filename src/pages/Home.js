@@ -7,7 +7,6 @@ import React, {
   Suspense,
 } from 'react'
 import styled from 'styled-components'
-import { v4 as uuid } from 'uuid'
 import {
   Grid,
   AppBar,
