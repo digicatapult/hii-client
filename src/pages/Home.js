@@ -29,10 +29,18 @@ import geojson from '../assets/hii.json'
 const Dialog = lazy(() => import('./components/Dialog'))
 const Map = lazy(() => import('./components/Map'))
 
-// give each feature an id
-// maybe this could be generated once and saved in a file, sorry was not thinking while reviewing
+// give each feature an id and convert hydrogens string into an array
 geojson.features = geojson.features.map((f) => {
-  return { ...f, properties: { ...f.properties, id: uuid() } }
+  return {
+    ...f,
+    properties: {
+      ...f.properties,
+      'Type of Hydrogen': f.properties['Type of Hydrogen']
+        .split(';')
+        .map((type) => type.trim()),
+      id: uuid(),
+    },
+  }
 })
 
 const HomeBar = styled.picture`
