@@ -7,7 +7,6 @@ import React, {
   Suspense,
 } from 'react'
 import styled from 'styled-components'
-import { v4 as uuid } from 'uuid'
 import {
   Grid,
   AppBar,
@@ -29,9 +28,17 @@ import geojson from '../assets/hii.json'
 const Dialog = lazy(() => import('./components/Dialog'))
 const Map = lazy(() => import('./components/Map'))
 
-// give each feature an id
+// give each feature an id and convert hydrogens string into an array
 geojson.features = geojson.features.map((f) => {
-  return { ...f, properties: { ...f.properties, id: uuid() } }
+  return {
+    ...f,
+    properties: {
+      ...f.properties,
+      'Type of Hydrogen': f.properties['Type of Hydrogen']
+        .split(';')
+        .map((type) => type.trim()),
+    },
+  }
 })
 
 const HomeBar = styled.picture`
@@ -102,22 +109,23 @@ const searchFieldsConfig = Object.fromEntries(
   searchFields.map(({ searchField }) => [searchField, { fieldType: 'text' }])
 )
 
-const formatProjectName = (name) => name.toLowerCase().replace(/\s/g, '_')
+const formatKey = (name) => name.toLowerCase().replace(/\s/g, '_')
 
-// TODO: loading spinner
-const SuspenseFallback = () => <></>
+// TMP this is ugly, being lazzy, options can be hardcoded including project types
+const filterOptions = (types = []) => {
+  geojson.features.forEach(({ properties }) =>
+    properties['Type of Hydrogen'].forEach((hydrogen) =>
+      types.push({
+        value: hydrogen,
+        label: hydrogen,
+      })
+    )
+  )
 
-export default function Home() {
-  const [search, setSearch] = useState([])
-  const [selectedFeature, setSelectedFeature] = useState(null)
-  const [filter, setFilter] = useState(null)
-  const [zoomLocation, setZoomLocation] = useState(null)
-  const listWrapperRef = useRef({})
-
-  const options = {
+  return {
     projects: geojson.features
       .map(({ properties }) => ({
-        value: formatProjectName(properties['Project Type']),
+        value: formatKey(properties['Project Type']),
         label: properties['Project Type'],
         color: getProjectTypeColour(properties['Project Type'], 'AA'),
         textColor:
@@ -128,8 +136,22 @@ export default function Home() {
       .filter(
         ({ value }, i, a) => a.map(({ value }) => value).indexOf(value) == i
       ),
-    hydrogens: [],
+    hydrogens: types.filter(
+      ({ value }, i, a) => a.map(({ value }) => value).indexOf(value) === i
+    ),
   }
+}
+
+const SuspenseFallback = () => <></>
+
+export default function Home() {
+  const [search, setSearch] = useState([])
+  const [selectedFeature, setSelectedFeature] = useState(null)
+  const [filter, setFilter] = useState({ projects: [], hydrogens: [] })
+  const [zoomLocation, setZoomLocation] = useState(null)
+
+  const listWrapperRef = useRef({})
+  const options = filterOptions()
 
   useEffect(() => {
     if (selectedFeature) {
@@ -143,18 +165,21 @@ export default function Home() {
   const filteredGeoJson = useMemo(() => {
     const { features, ...rest } = filterGeoJson(geojson, search)
     const filteredFeatures = features.filter(({ properties }) => {
-      if (!filter?.projects.length > 0) return true
-      const project = formatProjectName(properties['Project Type'])
-      // const hydrogen = feature.properties['Type of Hydrogen'].toLowerCase().replace(/\s/g, '_')
+      const { projects, hydrogens } = filter
+      const project = formatKey(properties['Project Type'])
+      const hydrogen = properties['Type of Hydrogen']
 
-      return filter.projects.includes(project)
+      // TODO when moving to utils, break down into some array helper functions
+      if (!projects.length > 0 && !hydrogens.length > 0) return true
+      if (hydrogens.length === 0) return projects?.includes(project)
+      if (projects.length === 0)
+        return hydrogens.some((selected) => hydrogen.includes(selected))
+
+      return (
+        hydrogens.some((selected) => hydrogen.includes(selected)) &&
+        projects.includes(project)
+      )
     })
-
-    if (!filter)
-      return {
-        ...rest,
-        features,
-      }
 
     return {
       ...rest,
@@ -232,9 +257,19 @@ export default function Home() {
                 })
               }}
             />
-            {/*<DropDown isMulti label={'TYPE OF HYDROGEN'} options={options.hydrogens} variant={'hii'} update={(res) => {
-              setFilter({ ...filter, hydrogens: res.map(({ value }) => value) })
-            }}/>*/}
+            <DropDown
+              isMulti
+              placeholder="Select type of hydrogen"
+              label="TYPE OF HYDROGEN"
+              options={options.hydrogens}
+              variant="hii"
+              update={(res) => {
+                setFilter({
+                  ...filter,
+                  hydrogens: res.map(({ value }) => value),
+                })
+              }}
+            />
           </FilterWrapper>
         </Drawer>
       </Grid.Panel>
