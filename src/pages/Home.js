@@ -1,9 +1,15 @@
-import React, { useMemo, useState, useEffect, useRef } from 'react'
+import React, {
+  useMemo,
+  useState,
+  useEffect,
+  useRef,
+  lazy,
+  Suspense,
+} from 'react'
 import styled from 'styled-components'
 import { v4 as uuid } from 'uuid'
 import {
   Grid,
-  Map,
   AppBar,
   Search,
   Drawer,
@@ -12,13 +18,17 @@ import {
 } from '@digicatapult/ui-component-library'
 
 import { MAPBOX_TOKEN, MAPBOX_STYLE } from '../utils/env'
-import { GetProjectTypeColour } from '../utils/theme'
-import Dialog from './components/Dialog'
+import { getProjectTypeColour } from '../utils/theme'
+import Key from './components/Key'
 import { filterGeoJson, searchFields } from '../utils/search'
 
 import LogoPNG from '../assets/images/hii-logo.png'
 import LogoWebP from '../assets/images/hii-logo.webp'
 import geojson from '../assets/hii.json'
+
+const Dialog = lazy(() => import('./components/Dialog'))
+const Map = lazy(() => import('./components/Map'))
+
 // give each feature an id
 // maybe this could be generated once and saved in a file, sorry was not thinking while reviewing
 geojson.features = geojson.features.map((f) => {
@@ -96,9 +106,7 @@ const searchFieldsConfig = Object.fromEntries(
 const formatKey = (name) => name.toLowerCase().replace(/\s/g, '_')
 
 // TMP this is ugly, being lazzy, options can be hardcoded including project types
-const filterOptions = () => {
-  const types = []
-
+const filterOptions = (types = []) => {
   geojson.features.forEach(({ properties }) =>
     properties['Type of Hydrogen'].forEach((hydrogen) =>
       types.push({
@@ -113,7 +121,7 @@ const filterOptions = () => {
       .map(({ properties }) => ({
         value: formatKey(properties['Project Type']),
         label: properties['Project Type'],
-        color: GetProjectTypeColour(properties['Project Type'], 'AA'),
+        color: getProjectTypeColour(properties['Project Type'], 'AA'),
         textColor:
           properties['Project Type'] == ('Feasibility study' || 'Other')
             ? '#FFF'
@@ -128,9 +136,10 @@ const filterOptions = () => {
   }
 }
 
+const SuspenseFallback = () => <></>
+
 export default function Home() {
   const [search, setSearch] = useState([])
-  const [showDialog, setShowDialog] = useState(false)
   const [selectedFeature, setSelectedFeature] = useState(null)
   const [filter, setFilter] = useState({ projects: [], hydrogens: [] })
   const [zoomLocation, setZoomLocation] = useState(null)
@@ -172,10 +181,17 @@ export default function Home() {
     }
   }, [search, filter])
 
-  // clear selected feature on dialog close
   useEffect(() => {
-    if (!showDialog) setSelectedFeature(null)
-  }, [showDialog])
+    const selectedInView =
+      selectedFeature !== null &&
+      !!filteredGeoJson.features.find(
+        ({ properties: { id } }) => id === selectedFeature.properties.id
+      )
+
+    if (!selectedInView) {
+      setSelectedFeature(null)
+    }
+  }, [filteredGeoJson, selectedFeature])
 
   return (
     <FullScreenGrid
@@ -215,10 +231,7 @@ export default function Home() {
             placeholder="Search"
             color="#216968"
             background="white"
-            onSubmit={(s) => {
-              setSearch(s)
-              setShowDialog(false)
-            }}
+            onSubmit={setSearch}
           />
         </SearchWrapper>
       </Grid.Panel>
@@ -270,7 +283,7 @@ export default function Home() {
               orientation="left"
               background={
                 feature.properties.id === selectedFeature?.properties.id
-                  ? GetProjectTypeColour(
+                  ? getProjectTypeColour(
                       feature.properties['Project Type'],
                       '30'
                     )
@@ -278,7 +291,7 @@ export default function Home() {
               }
               height="5em"
               width="100%"
-              flashColor={GetProjectTypeColour(
+              flashColor={getProjectTypeColour(
                 feature.properties['Project Type']
               )}
               onClick={() => {
@@ -287,46 +300,50 @@ export default function Home() {
                   feature.geometry.coordinates[0],
                   feature.geometry.coordinates[1],
                 ])
-                setShowDialog(true)
               }}
             />
           ))}
         </ListWrapper>
       </Grid.Panel>
       <Grid.Panel area="main" style={{ position: 'relative' }}>
-        <Map
-          token={MAPBOX_TOKEN}
-          sourceJson={filteredGeoJson}
-          zoomLocation={zoomLocation}
-          initialState={{
-            height: '100%',
-            width: '100%',
-            zoom: 5.5,
-            style: MAPBOX_STYLE,
-          }}
-          cluster={true}
-          clusterOptions={{
-            clusterColor: '#216968',
-            clusterRadius: 14,
-            clusterMaxZoom: 10,
-          }}
-          pointOptions={{
-            pointExpression: pointColourExpression,
-            pointRadiusExpression: pointRadiusExpression,
-            pointStrokeColor: '#8a8988',
-            pointStrokeWidth: 1,
-            onPointClick: (feature) => {
-              setSelectedFeature(feature)
-              setShowDialog(true)
-            },
-            onClickZoomIn: 11,
-          }}
-        />
-        <Dialog
-          open={showDialog}
-          setOpen={setShowDialog}
-          feature={selectedFeature}
-        />
+        <Suspense fallback={<SuspenseFallback />}>
+          <Map
+            token={MAPBOX_TOKEN}
+            sourceJson={filteredGeoJson}
+            zoomLocation={zoomLocation}
+            initialState={{
+              height: '100%',
+              width: '100%',
+              zoom: 5.5,
+              style: MAPBOX_STYLE,
+            }}
+            cluster={true}
+            clusterOptions={{
+              clusterColor: '#216968',
+              clusterRadius: 14,
+              clusterMaxZoom: 10,
+            }}
+            pointOptions={{
+              pointExpression: pointColourExpression,
+              pointRadiusExpression: pointRadiusExpression,
+              pointStrokeColor: '#8a8988',
+              pointStrokeWidth: 1,
+              onPointClick: (feature) => {
+                setSelectedFeature(feature)
+              },
+              onClickZoomIn: 11,
+            }}
+          />
+        </Suspense>
+        {selectedFeature === null ? null : (
+          <Suspense fallback={<SuspenseFallback />}>
+            <Dialog
+              onClose={() => setSelectedFeature(null)}
+              feature={selectedFeature}
+            />
+          </Suspense>
+        )}
+        <Key />
       </Grid.Panel>
     </FullScreenGrid>
   )

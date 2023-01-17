@@ -64,11 +64,16 @@
     "style-loader": "^3.3.1",
     "url-loader": "^4.1.1",
     "webpack": "^5.74.0",
+    "webpack-bundle-analyzer": "^4.7.0",
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.9.3"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@digicatapult/ui-component-library": "^0.7.5",
+=======
+    "@digicatapult/ui-component-library": "^0.7.3",
+>>>>>>> main
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.5.0",

@@ -7,7 +7,7 @@ import {
   Link,
 } from '@digicatapult/ui-component-library'
 
-import { GetProjectTypeColour } from '../../utils/theme'
+import { getProjectTypeColour } from '../../utils/theme'
 
 const Wrapper = styled.div`
   position: absolute;
@@ -15,25 +15,20 @@ const Wrapper = styled.div`
   left: 5ch;
 `
 
-export default function Dialog({ open, setOpen, feature }) {
+export default function Dialog({ onClose, feature }) {
   const properties = feature?.properties
 
   const dialogRef = useRef(null)
   useEffect(() => {
     const dialog = dialogRef.current
-    if (open) {
-      dialog.show()
-    } else {
-      dialog.close()
-    }
+    dialog.show()
+  }, [])
 
-    const listener = () => {
-      setOpen(false)
-    }
-    dialog?.addEventListener('close', listener)
-
-    return () => dialog?.removeEventListener('close', listener)
-  }, [open, setOpen])
+  useEffect(() => {
+    const dialog = dialogRef.current
+    dialog?.addEventListener('close', onClose)
+    return () => dialog?.removeEventListener('close', onClose)
+  }, [onClose])
 
   return (
     <Wrapper>
@@ -74,7 +69,7 @@ export default function Dialog({ open, setOpen, feature }) {
                 title="Project details"
                 padding="1em 1.5em"
                 margin="0 -1.5em"
-                background={GetProjectTypeColour(
+                background={getProjectTypeColour(
                   properties?.['Project Type'],
                   '50'
                 )}
