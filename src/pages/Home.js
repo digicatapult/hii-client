@@ -175,17 +175,17 @@ export default function Home() {
     }
   }, [search, filter])
 
-  // useEffect(() => {
-  //   const selectedInView =
-  //     selectedFeature !== null &&
-  //     !!filteredGeoJson.features.find(
-  //       ({ properties: { id } }) => id === selectedFeature.properties.id
-  //     )
+  useEffect(() => {
+    if (selectedFeature === null) return
 
-  //   if (!selectedInView) {
-  //     setSelectedFeature(null)
-  //   }
-  // }, [filteredGeoJson, selectedFeature])
+    const selectedInView = !!filteredGeoJson.features.find(
+      ({ properties: { id } }) => id === selectedFeature.properties.id
+    )
+
+    if (!selectedInView) {
+      setSelectedFeature(null)
+    }
+  }, [filteredGeoJson, selectedFeature])
 
   return (
     <FullScreenGrid
