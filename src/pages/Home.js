@@ -339,6 +339,9 @@ export default function Home() {
               },
               onClickZoomIn: 11,
             }}
+            markerOptions={{
+              markerSearchFocus: true,
+            }}
           />
         </Suspense>
         {selectedFeature === null ? null : (
