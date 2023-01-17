@@ -95,8 +95,8 @@ const searchFieldsConfig = Object.fromEntries(
 
 const formatKey = (name) => name.toLowerCase().replace(/\s/g, '_')
 
-// this is ugly maybe just hardcode all posible options?
-const hydrogensOptions = () => {
+// TMP this is ugly, being lazzy, options can be hardcoded including project types
+const filterOptions = () => {
   const types = []
 
   geojson.features.forEach(({ properties }) =>
@@ -108,20 +108,7 @@ const hydrogensOptions = () => {
     )
   )
 
-  return types.filter(
-    ({ value }, i, a) => a.map(({ value }) => value).indexOf(value) === i
-  )
-}
-
-export default function Home() {
-  const [search, setSearch] = useState([])
-  const [showDialog, setShowDialog] = useState(false)
-  const [selectedFeature, setSelectedFeature] = useState(null)
-  const [filter, setFilter] = useState({ projects: [], hydrogens: [] })
-  const [zoomLocation, setZoomLocation] = useState(null)
-  const listWrapperRef = useRef({})
-
-  const options = {
+  return {
     projects: geojson.features
       .map(({ properties }) => ({
         value: formatKey(properties['Project Type']),
@@ -135,8 +122,21 @@ export default function Home() {
       .filter(
         ({ value }, i, a) => a.map(({ value }) => value).indexOf(value) == i
       ),
-    hydrogens: hydrogensOptions(),
+    hydrogens: types.filter(
+      ({ value }, i, a) => a.map(({ value }) => value).indexOf(value) === i
+    ),
   }
+}
+
+export default function Home() {
+  const [search, setSearch] = useState([])
+  const [showDialog, setShowDialog] = useState(false)
+  const [selectedFeature, setSelectedFeature] = useState(null)
+  const [filter, setFilter] = useState({ projects: [], hydrogens: [] })
+  const [zoomLocation, setZoomLocation] = useState(null)
+
+  const listWrapperRef = useRef({})
+  const options = filterOptions()
 
   useEffect(() => {
     if (selectedFeature) {
@@ -154,10 +154,10 @@ export default function Home() {
       const project = formatKey(properties['Project Type'])
       const hydrogen = properties['Type of Hydrogen']
 
-      // TODO if we work more when moving to utils, break down into some array check helper functions
+      // TODO when moving to utils, break down into some array helper functions
       if (!projects.length > 0 && !hydrogens.length > 0) return true
-      if (!hydrogens.length > 0) return projects?.includes(project)
-      if (!projects.length > 0)
+      if (hydrogens.length === 0) return projects?.includes(project)
+      if (projects.length === 0)
         return hydrogens.some((selected) => hydrogen.includes(selected))
 
       return (
@@ -165,12 +165,6 @@ export default function Home() {
         projects.includes(project)
       )
     })
-
-    if (!filter)
-      return {
-        ...rest,
-        features,
-      }
 
     return {
       ...rest,
