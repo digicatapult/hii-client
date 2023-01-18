@@ -246,7 +246,7 @@ export default function Home() {
           <FilterWrapper>
             <DropDown
               isMulti
-              placeholder="Select range of maturity"
+              placeholder="Select type of project"
               label="TYPE OF PROJECT"
               options={options.projects}
               variant="hii"
