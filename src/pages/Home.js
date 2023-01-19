@@ -6,6 +6,7 @@ import React, {
   lazy,
   Suspense,
 } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import {
   Grid,
@@ -149,9 +150,25 @@ export default function Home() {
   const [selectedFeature, setSelectedFeature] = useState(null)
   const [filter, setFilter] = useState({ projects: [], hydrogens: [] })
   const [zoomLocation, setZoomLocation] = useState(null)
-
+  const navigate = useNavigate()
   const listWrapperRef = useRef({})
   const options = filterOptions()
+  const { projectId: paramId } = useParams()
+
+  useEffect(() => {
+    if (paramId) {
+      const feature = geojson.features.find(
+        ({ properties: { id } }) => id === paramId
+      )
+      if (feature) {
+        setSelectedFeature(feature)
+        setZoomLocation([
+          feature.geometry.coordinates[0],
+          feature.geometry.coordinates[1],
+        ])
+      }
+    }
+  }, [paramId])
 
   useEffect(() => {
     if (selectedFeature) {
@@ -188,11 +205,11 @@ export default function Home() {
   }, [search, filter])
 
   useEffect(() => {
-    const selectedInView =
-      selectedFeature !== null &&
-      !!filteredGeoJson.features.find(
-        ({ properties: { id } }) => id === selectedFeature.properties.id
-      )
+    if (selectedFeature === null) return
+
+    const selectedInView = !!filteredGeoJson.features.find(
+      ({ properties: { id } }) => id === selectedFeature.properties.id
+    )
 
     if (!selectedInView) {
       setSelectedFeature(null)
@@ -301,6 +318,7 @@ export default function Home() {
                 feature.properties['Project Type']
               )}
               onClick={() => {
+                navigate(`/${feature.properties.id}`, { replace: true })
                 setSelectedFeature(feature)
                 setZoomLocation([
                   feature.geometry.coordinates[0],
@@ -335,6 +353,7 @@ export default function Home() {
               pointStrokeColor: '#8a8988',
               pointStrokeWidth: 1,
               onPointClick: (feature) => {
+                navigate(`/${feature.properties.id}`, { replace: true })
                 setSelectedFeature(feature)
               },
               onClickZoomIn: 11,

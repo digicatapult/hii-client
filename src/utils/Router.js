@@ -8,6 +8,7 @@ export default function Router() {
     <BrowserRouter basename={PUBLIC_BASE_PATH}>
       <Routes>
         <Route exec path={'/'} element={<Home />} />
+        <Route exec path={':projectId'} element={<Home />} />
       </Routes>
     </BrowserRouter>
   )
