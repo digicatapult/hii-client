@@ -66,7 +66,7 @@ export default function Key({}) {
           width="2.5em"
           closeBackground="#27847A"
           openBackground="#000"
-          borderRadius="1.25em"
+          borderRadius="0em"
           fontColor="#FFF"
           fontWeight="bold"
           margin="2em"
