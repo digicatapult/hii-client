@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { HelpContainer, ToggleButton } from '@digicatapult/ui-component-library'
 
-import { projectColours } from '../../utils/theme'
+import { projectColours, getProjectTypeColour } from '../../utils/theme'
 
 const Wrapper = styled.div`
   position: absolute;
@@ -45,7 +45,10 @@ const Rows = ({ projectTypes }) => (
     projectTypes != null &&
     projectTypes.length > 0
       ? projectTypes.map((projectType) => (
-          <Row key={projectType.label} color={projectType.color}>
+          <Row
+            key={projectType.label}
+            color={getProjectTypeColour(projectType.label)}
+          >
             {projectType.label}
           </Row>
         ))
