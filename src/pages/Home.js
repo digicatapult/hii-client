@@ -371,7 +371,7 @@ export default function Home() {
             />
           </Suspense>
         )}
-        <Key projects={options.projects} />
+        <Key projectTypes={options.projects} />
       </Grid.Panel>
     </FullScreenGrid>
   )

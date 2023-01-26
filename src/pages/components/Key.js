@@ -39,12 +39,14 @@ const Row = styled.div`
   }
 `
 
-const Rows = ({ projects }) => (
+const Rows = ({ projectTypes }) => (
   <RowWrapper>
-    {projects != undefined && projects != null && projects.length > 0
-      ? projects.map((project) => (
-          <Row key={project.label} color={project.color}>
-            {project.label}
+    {projectTypes != undefined &&
+    projectTypes != null &&
+    projectTypes.length > 0
+      ? projectTypes.map((projectType) => (
+          <Row key={projectType.label} color={projectType.color}>
+            {projectType.label}
           </Row>
         ))
       : Object.entries(projectColours).map(([key, value]) => (
@@ -55,14 +57,14 @@ const Rows = ({ projects }) => (
   </RowWrapper>
 )
 
-export default function Key({ projects }) {
+export default function Key({ projectTypes }) {
   const [isOpen, setIsOpen] = useState(false)
   const onClick = () => setIsOpen(!isOpen)
   return (
     <Wrapper>
       {isOpen && (
         <HelpContainer width="25ch" background="#FFF">
-          <Rows projects={projects} />
+          <Rows projectTypes={projectTypes} />
         </HelpContainer>
       )}
       <ButtonWrapper>
