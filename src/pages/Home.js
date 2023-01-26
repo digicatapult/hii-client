@@ -6,7 +6,7 @@ import React, {
   lazy,
   Suspense,
 } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
 import {
   Grid,
@@ -150,10 +150,11 @@ export default function Home() {
   const [selectedFeature, setSelectedFeature] = useState(null)
   const [filter, setFilter] = useState({ projects: [], hydrogens: [] })
   const [zoomLocation, setZoomLocation] = useState(null)
-  const navigate = useNavigate()
   const listWrapperRef = useRef({})
   const options = filterOptions()
-  const { projectId: paramId } = useParams()
+
+  const [searchParams, setSearchParams] = useSearchParams()
+  const paramId = searchParams.get('projectId')
 
   useEffect(() => {
     if (paramId) {
@@ -318,7 +319,7 @@ export default function Home() {
                 feature.properties['Project Type']
               )}
               onClick={() => {
-                navigate(`/${feature.properties.id}`, { replace: true })
+                setSearchParams({ projectId: feature.properties.id })
                 setSelectedFeature(feature)
                 setZoomLocation([
                   feature.geometry.coordinates[0],
@@ -353,7 +354,7 @@ export default function Home() {
               pointStrokeColor: '#8a8988',
               pointStrokeWidth: 1,
               onPointClick: (feature) => {
-                navigate(`/${feature.properties.id}`, { replace: true })
+                setSearchParams({ projectId: feature.properties.id })
                 setSelectedFeature(feature)
               },
               onClickZoomIn: 11,
