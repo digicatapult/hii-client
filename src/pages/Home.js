@@ -343,7 +343,7 @@ export default function Home() {
             }}
             cluster={true}
             clusterOptions={{
-              clusterColor: '#216968',
+              clusterColor: '#979797',
               clusterRadius: 14,
               clusterMaxZoom: 10,
             }}
