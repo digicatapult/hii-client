@@ -1,5 +1,9 @@
 # hii-client
 
+## Deprecation Notice
+This application was deprecated on March 14th 2024, there will be no further dependency or security updates.
+---
+
 Front-end for the Hydrogen Innovation Initiative
 
 ## Configuration
